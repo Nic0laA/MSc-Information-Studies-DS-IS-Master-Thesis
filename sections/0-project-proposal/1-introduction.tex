@@ -1,0 +1,13 @@
+\section{Introduction}
+\label{sec:introduction}
+% Mention scientific field, problem statement, and the research gap you wish to address. 
+Gravitational waves are ripples in the fabric of spacetime originating from the acceleration of massive astronomical objects e.g. the merger of black holes or neutron stars. Analysis of gravitational wave signals can be used to infer physical information about their source of origin. 
+
+Since the first direct observation of gravitational waves in 2015, there has been a considerable increase in detector sensitivity and subsequent event rate. This introduces significant data analysis challenges for the gravitational wave community \cite{bhardwaj2023peregrine}.
+For instance, current data analysis pipelines are not prepared to deal with signals arriving coincidentally in detectors, and scale poorly as the dimensionality of the problem increases \cite{alvey2023things}. This makes the analysis of large number of overlapping signals computationally infeasible.
+
+The \texttt{peregrine} pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges \cite{bhardwaj2023peregrine}. It introduces Simulation-based inference (SBI) based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm. SBI is a machine learning technique combining a simulator, statistical surrogate model and set of prior beliefs. The generated output is a probability distribution of the parameters that most-likely produced the detected signal  \cite{Miller2022}.
+
+Due to the high simulation costs associated with running these analysis pipelines, this thesis will focus on the optimisation of the network architecture underlying the \texttt{peregrine} tool. The main research question will be: 
+
+\textit{To what extent can the optimisation of the \texttt{peregrine} network architecture reduce the number of required simulations, while still producing the same results?}
