@@ -1,4 +1,28 @@
 \section{Related Work}
 \label{sec:related_work}
 % Your work needs to be grounded and compared to earlier work and the state-of-the-art. Start the section with announcing the research gap and also end with the research gap. Consider using hypotheses. 
-Write about your related work here. Make clear to which key papers you will compare your eventual results. This can be done from the perspective of methods used, the task at hand and the addressed domain.
+
+\subsection{Gravitational wave analysis}
+
+The first direct detection of gravitational waves occurred in 2015 after the merger of two black holes \cite{LIGO_2016}. Since then, the LIGO-Virgo collaboration has confirmed 90 gravitational wave detections from the first three observing runs. Of these 90 detections, there were 83 black hole mergers, 2 binary neutron star mergers, 3 neutron star-black hole mergers and 2 involving the merger between a black hole and a `mystery' object that had a mass in between that of a neutron star and black hole \cite{LIGO_FAQ_Website}.
+
+Analysis of gravitational waves consists of two parts -- detection and parameter inference \cite{bhardwaj2023peregrine}. This thesis is concerned only with the inference part. The theory of how sources emit gravitational waves is well established, and the entire gravitational waveform may be expressed by $\sim$15 parameters. Bayesian inference is therefore used extensively in gravitational-wave astronomy for parameter inference \cite{Thrane_Talbot_2019}.
+
+There are well established methods for accurately forward modelling GW waveforms, detector responses and instrument noise \cite{alvey2023things} e.g. the open-source Bilby code \cite{Ashton_Bilby_2019,Romero_Bilby_2020,Ashton_Talbot_Bilby_2021}. Therefore, given the well-known theory, and these 15 parameters $\theta$ as input, it is fairly straightforward to accurately model what you expect the data, $x$ to look like. However, calculating the inverse of this i.e. the posterior, or the probability of parameters $\theta$ given $x$, is significantly more challenging and also scales very poorly with increasing dimensionality. As utilising a brute-force approach starts to become computationally infeasible above three dimensions, the traditional approach involves using a stochastic sampling technique \cite{Thrane_Talbot_2019}, such as Markov chain Monte Carlo (MCMC) \cite{Metropolis_1953,Hastings_1970} or nested sampling \cite{Skilling_2004}.
+
+\subsection{Simulation-based inference}
+
+In recent years, thanks to the enormous rise in machine learning capabilities, particularly with deep neural networks, simulation-based inference (SBI) methods have experienced rapid expansion \cite{Cranmer_SBI_2020}. One of the major limitations of traditional MCMC and nested sampling approaches is that they require the likelihood $P(x|\theta)$, or probability of a given observation occurring to be known in advance. However, SBI does not need an explicit likelihood function up-front, but instead requires a realistic forward simulator. SBI is considered to be highly simulation efficient and finds applications in many scientific domains including particle physics, neuroscience, epidemiology, economics, economics, climate science and astrophysics \cite{Cranmer_SBI_2020}.
+
+\subsubsection{Peregrine}
+
+The \texttt{Peregrine} code was developed to study broad classes of gravitational wave signals. The papers describing the development of the code \cite{bhardwaj2023peregrine,alvey2023things} will form the main starting point of this thesis, and will also serve as the baseline for this new work to be benchmarked against. \texttt{Peregrine} implements an SBI algorithm known as Truncated Marginal Neural Ratio Estimation (TMNRE) \cite{Miller_TMNRE_2021} and is built on top of the \texttt{swyft} code \cite{Miller2022}. The TMNRE algorithm estimates the marginal likelihood-to-evidence ratio, and works by training binary classifiers to distinguish jointly drawn sample pairs from marginally drawn sample pairs.
+
+\subsection{Deep learning for signal analysis}
+
+\todo[inline]{Describe current state-of-the-art deep learning algorithms for signal analysis problems}
+
+\subsection{Sampling methods}
+
+\todo[inline]{Research efficient sampling methods for high dimensional data, with specific application for Bayesian inference}
+

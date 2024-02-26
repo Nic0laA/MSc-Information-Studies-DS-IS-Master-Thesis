@@ -1,16 +1,19 @@
 \section{Introduction}
 \label{sec:introduction}
 % Mention scientific context/field, problem statement, research gap and candidate (sub) research question(s). 
-Write your introduction here. It should be immediately clear how your proposed contribution is scientifically relevant and fills the research gap.
- \TODO{This is a TODO} This is a test citation \cite{Gruber1995}
 
-Towards the end of the introduction, you should also add your \textit{preliminary} \textbf{reasearch questions (RQ)} here. You may want to state your main RQ like this:
+Gravitational Waves (GW) are ripples in the fabric of space-time originating from the acceleration of massive astronomical objects e.g. the merger of black holes or neutron stars. Analysis of gravitational wave signals can be used to infer physical information about their source of origin. 
 
-\noindent\textit{To what extent can a master thesis template enhance the quality of the final thesis?}\REMARK{This is a remark}
+Since the first direct observation of gravitational waves in 2015, there has been a considerable increase in detector sensitivities and survey volumes. The substantial increase in detection rate of events over time is introducing significant data analysis challenges for the gravitational wave community \cite{bhardwaj2023peregrine}.
+For instance, current data analysis pipelines are not prepared to deal with independent signals arriving coincidentally in detectors, and scale poorly as the dimensionality of the problem increases \cite{alvey2023things}. This makes the analysis of large number of overlapping signals, or those containing non-stationary noise computationally infeasible.
 
-You can then list the sub-questions as:
-\begin{itemize}
-    \item How does the structure of the template influence the final grading?
-    \item To what extent is textual guidance sufficient for structured working?
-    \item \dots
-\end{itemize}
+The \texttt{peregrine} analysis pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges \cite{bhardwaj2023peregrine}. It utilises Simulation-based inference (SBI) based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm and the U-Net convolutional neural network architecture. Due to the high simulation costs associated with running these analysis pipelines, this thesis will focus on the optimisation of the network architecture underlying the \texttt{peregrine} code. The main research question will be: 
+
+\textit{To what extent can the optimisation of the \texttt{peregrine} network architecture reduce the simulation budget, while still producing the same results as the original \texttt{peregrine}?}
+
+Smaller sub-questions to be addressed include:
+
+\begin{enumerate}
+    \item What parameters have the most influence on the generated/detected gravitational wave signals?
+    \item How can more efficient sampling methods be used to further improve the computational efficiency of \texttt{peregrine}?
+\end{enumerate}

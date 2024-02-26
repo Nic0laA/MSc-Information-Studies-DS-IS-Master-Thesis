@@ -11,17 +11,20 @@
 %% `draftmargins` - If you would like to give your reviewer more space for comments
 \documentclass[]{thesisdesign}
 
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate]{nosep}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT METADATA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Thesis related entries
-\title{Fill In Your Title}
-\subtitle{Submitted on: \textbf{DD-MM-YYYY}}
+\title{Optimising peregrine for simulation-based inference of gravitational waves}
+\subtitle{Submitted on: \textbf{23-02-2024}}
 
 % Author data
-\authorname{Your Name}
-\authoremail{your@student.mail}
+\authorname{Nicola Asquith}
+\authoremail{nicola.asquith@student.uva.nl}
 % ACM-sepecific entries
 \affiliation{
     \institution{\thesisinstitution}
@@ -30,14 +33,29 @@
 }
 
 % Supervisor data
-\authorname{UvA Supervisor Name}
-\authoremail{supervisor@uva.nl}
+\authorname{Christoph Weniger}
+\authoremail{C.Weniger@uva.nl}
 % ACM-sepecific entries
 \affiliation{
-    \institution{\thesisinstitution}
-    \city{\thesiscity}
-    \country{\thesiscountry}
+    \institution{GRAPPA Institute, Institute for Theoretical Physics \\ \thesisinstitution}
+    %\city{\thesiscity}
+    %\country{\thesiscountry}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikz library
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{sample} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=red!30]
+\tikzstyle{simulator} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=blue!30]
+\tikzstyle{network} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=5cm, draw=black, fill=green!30]
+\tikzstyle{inference} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=2cm, draw=black, fill=yellow!40]
+\tikzstyle{pinput} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, text width=2cm, fill=pink!30]
+\tikzstyle{tinput} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, text width=2cm, draw=black, fill=pink!30]
+\tikzstyle{output} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+
+\tikzstyle{arrow} = [thick, ->, >=stealth]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONTENT
