@@ -1,16 +1,23 @@
 \section{Introduction}
 \label{sec:introduction}
-% Mention scientific context/field, problem statement, research gap and (sub) research question(s). 
-Write your introduction here. It should be immediately clear how your proposed contribution is scientifically relevant and fills the research gap.
- \TODO{This is a TODO} This is a test citation \cite{Gruber1995}
+% Mention scientific context/field, problem statement, research gap and candidate (sub) research question(s). 
 
-Towards the end of the introduction, you should also add your \textit{preliminary} \textbf{reasearch questions (RQ)} here. You may want to state your main RQ like this:
+Gravitational Waves (GW) are ripples in the fabric of space-time originating from the acceleration of massive astronomical objects e.g. the merger of black holes or neutron stars. 
+Analysis of gravitational waves can be used to infer physical information regarding their source of origin, as well as provide the opportunity to observe the universe in an entirely new way.
 
-\noindent\textit{To what extent can a master thesis template enhance the quality of the final thesis?}\REMARK{This is a remark}
+Since the first direct detection of gravitational waves in 2015 \cite{LIGO_2016}, the detector sensitivities and survey volumes are ever-increasing. The substantial rise in detection rate of events over time is introducing significant data analysis challenges for the gravitational wave community \cite{bhardwaj2023peregrine}.
+For instance, current data analysis pipelines are not equipped to deal with independent signals arriving coincidentally in detectors, and scale poorly as the dimensionality of the problem increases \cite{alvey2023things}. This makes the analysis of large number of overlapping signals, or those containing non-stationary noise increasingly complicated and computationally expensive \cite{bhardwaj2023peregrine}.
 
-You can then list the sub-questions as:
-\begin{itemize}
-    \item How does the structure of the template influence the final grading?
-    \item To what extent is textual guidance sufficient for structured working?
-    \item \dots
-\end{itemize}
+The \texttt{peregrine} inference pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges \cite{bhardwaj2023peregrine}. It utilises the Simulation-based inference (SBI) method based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm with the U-Net Convolutional Neural Network (CNN) architecture. The \texttt{peregrine} pipeline consists of multiple rounds of network training and inference, which comes with a high simulation cost. It is therefore highly beneficial for the network to be as fast and as accurate as possible. This thesis explores the possibilities to optimise the network architecture underlying the \texttt{peregrine} code. The main research question will be: 
+
+\noindent \textit{RQ: To what extent can the optimisation of the \texttt{peregrine} network architecture reduce the simulation budget, while still producing the same results as the original \texttt{peregrine}?}
+
+Smaller sub-questions to be addressed include:
+
+\noindent SRQ1: How can we quantify the efficiency of the underlying neural network?
+
+\noindent SRQ2: How can more efficient sampling methods be used to further improve the computational efficiency of \texttt{peregrine}?
+
+To explore the possibilities of improving the performance of the U-Net CNN within \texttt{peregrine}, we will consider two competing approaches - expansion and reduction. For the expansion part, we will look at two pretrained vision transformer models \cite{Dosovitskiy_2021_ViT,Zerveas_2020_mvts}, and attention u-net \cite{Oktay_2018_AUNet}. For the reduction approach, we will look at pruning methods \cite{Fang_Ma_Song_Mi_Wang_2023}.
+
+The structure of this report is as follows. Related work in section bla, background theory in section bla.

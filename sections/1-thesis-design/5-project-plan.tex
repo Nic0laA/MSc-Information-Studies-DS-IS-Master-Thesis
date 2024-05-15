@@ -7,17 +7,25 @@ An overview of the project plan is shown in the Gantt chart below.
 % For more complex Gantt charts see documentation here: 
 % http://mirror.ox.ac.uk/sites/ctan.org/graphics/pgf/contrib/pgfgantt/pgfgantt.pdf
 \ganttset{bar height=.3}
+\noindent\hspace*{-0.5cm}% Adjust the value as needed
 \begin{ganttchart}[
     expand chart=1.1\linewidth,
-    vgrid,
-    hgrid,
-    y unit chart=0.4cm
+    %vgrid,
+    %hgrid,
+    y unit chart = 0.4cm,
+    y unit title = 0.6cm,
+    title height = 1, % Adjusts the height of the title sections
     ]{0}{21}
         % Titles
-        \gantttitle{Weeks}{22} \\
-        \gantttitlelist{0,...,21}{1} \\
+        \gantttitle{2024}{22} \\ % Year title (optional)
+        \gantttitle{February}{4}    % 4 weeks in February from week 5 to 8
+        \gantttitle{March}{4}       % 4 weeks in March
+        \gantttitle{April}{5}       % 5 weeks in April
+        \gantttitle{May}{4}         % 4 weeks in May
+        \gantttitle{June}{5} \\     % 5 weeks in June up to week 26
+        \gantttitlelist{5,...,26}{1} \\
         
-        \ganttbar{Receive data/codes}{0}{0} \\  
+        \ganttbar{Get data/codes}{0}{0} \\  
         \ganttbar{Reproduce \cite{bhardwaj2023peregrine,alvey2023things}}{0}{2} \\ 
         \ganttbar{Thesis design}{0}{3} \\ 
         \ganttbar{Finalise lit review}{3}{5} \\ 
@@ -25,9 +33,9 @@ An overview of the project plan is shown in the Gantt chart below.
         \ganttmilestone{Full-time period}{9} \\
         \ganttbar{Setup simulations}{9}{10} \\ 
         \ganttbar{Run tests}{10}{11} \\
-        \ganttbar{Fin methodology}{11}{11} \\ 
-        \ganttbar{Opt experiments}{11}{13} \\ 
-        \ganttbar{Evaluation}{14}{14} \\ 
+        \ganttbar{Fin. methodology}{11}{11} \\ 
+        \ganttbar{Optim. experiments}{11}{13} \\ 
+        \ganttbar{Validation}{14}{14} \\ 
         \ganttbar{Buffer}{15}{15} \\ 
         \ganttbar{Pre-draft thesis}{15}{16} \\ 
         \ganttbar{Finalise results}{16}{16} \\ 
