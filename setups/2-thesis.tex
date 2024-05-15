@@ -23,28 +23,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Thesis related entries
-\title{Fill In Your Title}
-\subtitle{Fill In Your Sub-Title}
+\title{Simulation-based inference of gravitational waves}
+\subtitle{Testing performance with Vision Transformers}
 
 % Date on which your thesis is submitted
-\date{Fill In The Date In Format DD.MM.YYYY}
+\date{30.06.2024}
 
 % 4-5 keywords should do the trick. They should ideally be phrases of 2-4 words or single words.
-\keywords{keywords, belong, here, with, commas, like, this}
+\keywords{Simulation-Based Inference, Bayesian Inference, Gravitational Waves, UNet, Vision Transformer}
 
 % Author data
-\authorname{Your Name}
-\authorid{Your Student ID}
-\authoremail{your@student.mail}
+\authorname{Nicola Asquith}
+\authorid{15058050}
+\authoremail{nicola.asquith@student.uva.nl}
 
 % Supervisors
-\uvasupervisorname{UvA Supervisor}
-\uvasupervisoraffiliation{UvA Supervisor}
-\uvasupervisoremail{supervisor@uva.nl}
+\uvasupervisorname{Christoph Weniger}
+\uvasupervisoraffiliation{GRAPPA Institute Institute for Theoretical Physics}
+\uvasupervisoremail{C.Weniger@uva.nl}
 
 % Comment if you do not have an external supervisor
-\externalsupervisorname{External Supervisor} \externalsupervisoraffiliation{External Supervisor}
-\externalsupervisoremail{supervisor@company.nl}
+% \externalsupervisorname{External Supervisor} \externalsupervisoraffiliation{External Supervisor}
+% \externalsupervisoremail{supervisor@company.nl}
 
 % % Uncomment and fill paths if you want to add custom images
 % %% Figure size suggestions (in general it's best to render them from SVGs):
@@ -52,6 +52,21 @@
 % \titlepicturepath{}
 % \firstcompanypicturepath{}
 % \secondcompanypicture{path}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikz library
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{sample} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=red!30]
+\tikzstyle{simulator} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=blue!30]
+\tikzstyle{network} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=5cm, draw=black, fill=green!30]
+\tikzstyle{inference} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=2cm, draw=black, fill=yellow!40]
+\tikzstyle{pinput} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, text width=2cm, fill=pink!30]
+\tikzstyle{tinput} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, text width=2cm, draw=black, fill=pink!30]
+\tikzstyle{output} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+
+\tikzstyle{arrow} = [thick, ->, >=stealth]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONTENT
@@ -66,17 +81,18 @@
 
 \begin{abstract}
 % A summary of results should be included. Avoid citations. Maximum length is 200 words.
-Write your abstract here.
+Cover image: https://www.ligo.caltech.edu/page/what-are-gw
 \end{abstract}
 
 \maketitle
 
 \section*{Github Repository}
-\url{https://github.com/you/your_awesome_thesis_repo}
+\url{https://github.com/Nic0laA/master-thesis}
 
 % Sections; Try to stick to this setup but you can comment each section
 \input{sections/2-thesis/1-introduction.tex}
-\input{sections/2-thesis/2-related-work.tex}
+\input{sections/2-thesis/2a-related-work.tex}
+\input{sections/2-thesis/2b-background-theory.tex}
 \input{sections/2-thesis/3-methodology.tex}
 \input{sections/2-thesis/4-results.tex}
 \input{sections/2-thesis/5-discussion.tex}

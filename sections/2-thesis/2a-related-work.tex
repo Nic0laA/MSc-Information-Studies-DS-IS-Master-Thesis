@@ -5,24 +5,33 @@
 \subsection{Gravitational wave analysis}
 
 The first direct detection of gravitational waves occurred in 2015 after the merger of two black holes \cite{LIGO_2016}. Since then, the LIGO-Virgo collaboration has confirmed 90 gravitational wave detections from the first three observing runs. Of these 90 detections, there were 83 black hole mergers, 2 binary neutron star mergers, 3 neutron star-black hole mergers and 2 involving the merger between a black hole and a `mystery' object that had a mass in between that of a neutron star and black hole \cite{LIGO_FAQ_Website}. The annual detection rate of events is expected to increase significantly in the fourth and fifth observing runs, increasing $\sim$5x each observing run \cite{Petrov_2022}.
+The first direct detection of gravitational waves occurred in 2015 after the merger of two black holes \cite{LIGO_2016}. Since then, the LIGO-Virgo collaboration has confirmed 90 gravitational wave detections from the first three observing runs. Of these 90 detections, there were 83 black hole mergers, 2 binary neutron star mergers, 3 neutron star-black hole mergers and 2 involving the merger between a black hole and a `mystery' object that had a mass in between that of a neutron star and black hole \cite{LIGO_FAQ_Website}. The annual detection rate of events is expected to increase significantly in the fourth and fifth observing runs, increasing $\sim$5x each observing run \cite{Petrov_2022}.
 
 Analysis of gravitational waves consists of two parts -- detection and parameter inference \cite{bhardwaj2023peregrine}. This thesis is concerned only with the inference part. The theory of how sources emit gravitational waves is well established, and the entire gravitational waveform may be expressed by $\sim$15 parameters \cite{Thrane_Talbot_2019}. There are well established methods for accurately forward modelling GW waveforms, detector responses and instrument noise \cite{alvey2023things} e.g. the open-source Bilby code \cite{Ashton_Bilby_2019,Romero_Bilby_2020,Ashton_Talbot_Bilby_2021}. Therefore, given the well-known theory, and these 15 parameters as input, it is fairly straightforward to accurately simulate what you expect the GW waveform to look like. However, performing the inverse of this problem i.e. backing out the 15 parameters from a given GW waveform is significantly more challenging. Bayesian inference methods are therefore used extensively in gravitational-wave astronomy \cite{Thrane_Talbot_2019}.
 
 Due to the high dimensionality, brute-force techniques for GW parameter inference are computationally infeasible. The traditional approach involves using stochastic sampling methods \cite{Thrane_Talbot_2019}, such as Markov chain Monte Carlo (MCMC) \cite{Metropolis_1953,Hastings_1970} or nested sampling \cite{Skilling_2004}. However, these techniques increasingly struggle with higher dimensional data and are not feasible options in the case of overlapping signals, where one needs to now infer 30 model parameters from the data \cite{alvey2023things}.
 
-\subsection{Simulation-based inference}
 
-In recent years, thanks to the enormous rise in machine learning capabilities, particularly with deep neural networks, simulation-based inference (SBI) methods have experienced rapid expansion \cite{Cranmer_SBI_2020}. SBI is considered to be a highly simulation efficient technique and finds applications in many scientific domains including particle physics, neuroscience, epidemiology, economics, economics, climate science and astrophysics \cite{Cranmer_SBI_2020}.
-
-One of the major limitations of traditional MCMC and nested sampling approaches is that they require the likelihood $P(x|\theta)$, or probability of a given observation occurring to be known in advance. However, SBI does not need an explicit likelihood function up-front, because it is instead given a realistic forward simulator it can sample from.
-
-Using Bayes' theoreom,
-\begin{equation*}
-    P(\theta|x) = \frac{P(\theta|x) P(\theta)}{P(x)}
-\end{equation*}
-Where $P(\theta|x)$ is the posterior of parameters $\theta$ given some observed or simulated data $x$, $P(\theta|x)$ is the likelihood of given data $x$ given input parameters $\theta$, $P(\theta)$ is the prior distribution of $\theta$ and $P(x)$ is the Bayesian evidence of $x$. The power of SBI arises because if you have a forward generative model, $P(x,\theta)=P(\theta|x) P(\theta)$, you are able to sample implicitly from the (simulated) likelihood \cite{Cranmer_SBI_2020}.
-
-
-\subsubsection{Peregrine}
+\subsection{Swyft and Peregrine}
 
 The \texttt{Peregrine} code was developed to study broad classes of gravitational wave signals. The papers describing the development of the code \cite{bhardwaj2023peregrine,alvey2023things} will form the main starting point of this thesis, and will also serve as the baseline for this new work to be benchmarked against. \texttt{Peregrine} implements an SBI algorithm known as Truncated Marginal Neural Ratio Estimation (TMNRE) \cite{Miller_TMNRE_2021} and is built on top of the \texttt{swyft} code \cite{Miller2022}. The TMNRE algorithm estimates the marginal likelihood-to-evidence ratio, and works by training binary classifiers to distinguish jointly drawn sample pairs from marginally drawn sample pairs.
+
+
+\subsection{Neural Network Architectures}
+
+\subsubsection{U-Net}
+
+U-Net is a fully convolutional neural network that was originally developed in 2015 for biomedical image segmentation \cite{Ronneberger_Fischer_Brox_2015}. 
+
+Gold Standard for biomedical semantic segmentation. Describe architecture here.
+
+Many papers discuss improvements including attention u-net, u-net++, 
+
+\subsubsection{Attention U-Net}
+
+\subsubsection{Transformer models}
+
+Vision transformers and time series models.
+
+
+\subsection{Network pruning}

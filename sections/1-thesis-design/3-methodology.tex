@@ -6,7 +6,7 @@
 
 The overall objective of this work is to increase the efficiency of the \texttt{Peregrine} data analysis pipeline. The work will begin with reproducing the results from papers \cite{bhardwaj2023peregrine} and \cite{alvey2023things}, as this will form the benchmark to which the eventual results will be compared to.
 
-The workflow for the simulation-based inference technique for the analysis of the gravitational wave signals as implemented in \texttt{peregrine} \cite{bhardwaj2023peregrine} is shown in Figure \ref{fig:peregrine_pipeline}. The process starts by setting the 15 parameters of the `target observation' and then generating the example waveform to be analysed. This is done so there are `ground-truth' parameter values that you can compare your final posterior probability density distributions with to validate the overall method. If we use a true experimentally measured signal, then we can not know for certain what the `ground-truth' values of the parameters are. Given the accuracy that we can forward model the GW signals with, once the method is validated with the simulated waveforms, it is expected to work equally well with true experimental measurements.
+The workflow for the simulation-based inference technique for the analysis of the gravitational wave signals as implemented in \texttt{peregrine} \cite{bhardwaj2023peregrine} is shown in Figure \ref{fig:peregrine_pipeline}. The process starts by setting the 15 parameters of the `target observation' and then generating the example waveform to be analysed. This is done so there are `ground-truth' parameter values that you can compare your final posterior probability density distributions with and validate the overall method. If we use a true experimentally measured signal, then we can never know for certain what the `ground-truth' values of the parameters are. Given the accuracy that we can forward model the GW signals with, once the method is validated with the simulated waveforms, it is expected to work equally well with true experimental measurements.
 
 \begin{figure}[htb]
     \centering
@@ -26,7 +26,7 @@ The workflow for the simulation-based inference technique for the analysis of th
         \draw [arrow] (target) -- (inference);
         \draw [arrow] (inference) -- (posterior);
         \draw [arrow] (inference) -- (ratios);
-        \draw [arrow] (ratios) -- +(-3,0) |- node[anchor=west, yshift=-2cm, text width=2cm]{Using $r(\boldsymbol{x}_0;\theta)$ update prior $p(\boldsymbol{\theta}_{GW})$ and repeat until converged} (sampling);
+        \draw [arrow] (ratios) -- +(-3,0) |- node[anchor=west, yshift=-2cm, text width=2cm]{Using $r(\boldsymbol{x}_0;\theta)$ update prior $p(\boldsymbol{\theta}_{GW})$ and repeat rounds until converged} (sampling);
     \end{tikzpicture}
     \caption{High-level overview of the simulation-based inference method used for this work.}
     \label{fig:peregrine_pipeline}
@@ -34,7 +34,7 @@ The workflow for the simulation-based inference technique for the analysis of th
 
 \subsection{Data simulation}
 
-The GW waveform data used to train the neural network is generated using the Bilby code \cite{Ashton_Bilby_2019} from input parameters that have been randomly sampled from prior distributions. We will investigate whether some more active learning can be introduced to increase the efficiency of the sampling process. For instance, some parameters such as the chirp mass\footnote{The chirp mass is a combination of the two object masses in the binary system, and is a key factor in the gravitational wave frequency as the two objects spiral inwards toward each other.\\$\mathcal{M} = \frac{(m_1 \cdot m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$} may be inferred early on with relatively high confidence, but currently in subsequent simulation rounds continues to be sampled from a uniform distribution within $\pm5\sigma$ \cite{Miller_TMNRE_2021}. By being more selective in the sampling of parameters that are known with relatively high confidence, we can focus the simulation budget more on the parameters we know with less confidence. To do this in a systematic way, a complete survey of how influential each parameter is on the different segments of the GW signal will be carried-out first.
+The forward simulator to generate the GW waveform data and subsequently used to train the neural network is generated using the Bilby code \cite{Ashton_Bilby_2019} from input parameters that have been randomly sampled from prior distributions. We will investigate whether some more active learning can be introduced to increase the efficiency of the sampling process. For instance, some parameters such as the chirp mass\footnote{The chirp mass is a combination of the two object masses in the binary system, and is a key factor in the gravitational wave frequency as the two objects spiral inwards toward each other.\\$\mathcal{M} = \frac{(m_1 \cdot m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$} may be inferred early on with relatively high confidence, but currently in successive simulation rounds continues to be sampled from a uniform distribution within $\pm5\sigma$ \cite{Miller_TMNRE_2021}. By being more selective in the sampling of parameters that are known with relatively high confidence, we can focus the simulation budget more on the parameters we know with less confidence. To do this in a systematic way, a complete survey of how influential each parameter is on the different segments of the GW signal will be carried-out first.
 
 \subsection{Optimisation of network architecture}
 
@@ -47,14 +47,14 @@ The chosen network architecture also needs to be capable of segmenting the signa
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{media/images/obs_time_domain.png}
-  \caption{Example of generated gravitational wave signal in the time domain. The noise and signal are shown separately in the figure, but are added together for training. The two black holes merge at the moment t=0s. }
+  \caption{Example of generated gravitational wave signal in the time domain. Signals from three detectors are shown. For clarity, the noise and signal are shown separately in the figure, but are added together when training the network. The two black holes merge at the moment t=0s. }
   \label{fig:obs_time_domain}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{media/images/obs_frequency_domain.png}
-  \caption{Example of generated gravitational wave signal in the frequency domain. The noise and signal are shown separately in the figure, but are added together for training.}
+  \caption{Example of generated gravitational wave signal in the frequency domain. Signals from three detectors are shown. For clarity, the noise and signal are shown separately in the figure, but are added together when training the network.}
   \label{fig:obs_freq_domain}
 \end{figure}
 
