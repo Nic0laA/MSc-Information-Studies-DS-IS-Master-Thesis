@@ -9,55 +9,72 @@
 % ============================================================================ %
 \subsection{Description of the data}
 
-The data used in this study was simulated using the open-source Bilby code~\cite{Ashton_Bilby_2019}. The gravitational waveforms of three LIGO detectors (Hanford, Washington and Livingston) were generated as a function of 15 independent parameters. Ten of these parameters represented intrinsic properties of the source e.g. the masses and spins of the two black holes, while five of these are extrinsic parameters e.g. the distance from the source and orientation in the sky with respect to the observations. Further details of the parameters are listed in Table~\ref{tab:gw_parameters}. Simulating the waveforms for training the neural network is necessary since we need $\sim$100000 waveforms for training and experimentally measured signals are rare (only 90 detections so far).
-
-Only low SNR case considered because high SNR is unrealistic and it is important for the network to determine signal from noise.
-
-\todo[inline]{Complete table}
-
-\begin{table}[htb]
-\centering
-\begin{tabular}{|l|l|l|l|}
-\hline
-\textbf{Parameter} & \textbf{Type} & \textbf{Prior} & \textbf{Test Value} \\
-\hline
-Mass ratio, \( q \) & I & \( U(0.125, 1) \) & 0.8858 \\
-Chirp mass \( M \) [\( M_{\odot} \)] & I & \( U(25, 100) \) & 32.14 \\
-Inclination angle \( \theta_{jn} \) [rad] & I & sine(0, \( \pi \)) & 0.4432 \\
-Phase \( \phi_c \) [rad] & I & \( U(0, 2\pi) \) & 5.089 \\
-Tilt angle \( \theta_1 \) [rad] & I & sine(0, \( \pi \)) & 1.497 \\
-Tilt angle \( \theta_2 \) [rad] & I & sine(0, \( \pi \)) & 1.102 \\
-Spin \( a_1 \) & I & \( U(0.05, 1) \) & 0.9702 \\
-Spin \( a_2 \) & I & \( U(0.05, 1) \) & 0.8118 \\
-Spin angle \( \phi_{12} \) [rad] & I & \( U(0, 2\pi) \) & 6.220 \\
-Spin angle \( \phi_{jl} \) [rad] & I & \( U(0, 2\pi) \) & 1.885 \\
-Luminosity Distance \( d_L \) [Mpc] & E & \( U_{\text{vol}}(100, 2000) \) & 900 \\
-Right ascension \( \alpha \) [rad] & E & \( U(0, 2\pi) \) & 5.556 \\
-Declination \( \delta \) [rad] & E & cosine(-\( \pi/2 \), \( \pi/2 \)) & 0.071 \\
-Polarisation angle \( \psi \) [rad] & E & \( U(0, \pi) \) & 1.100 \\
-Merger time \( t_c \) [GPS s] & E & \( U(-0.1, 0.1) \) & 0.000 \\
-\hline
-\end{tabular}
-\caption{Description and type of the parameters that fully describe the detected gravitational waves.}
-\label{tab:gw_parameters}
-\end{table}
-
-The waveform data consists of 1D signals in both time and frequency domains, collected from the three separate detectors that have captured the event simultaneously. An example of the signal in the time domain is shown in Figure~\ref{fig:obs_time_domain}. In total, there are 8192 channels corresponding to 4\,s of collection time at a sampling frequency of 2048\,Hz. With the Fourier transform, the time signal is decomposed into its constituent frequency components. Both the time and frequency domains are fed into the neural network, since they have different information about the parameters encoded. An example of the signal in the frequency domain is shown in Figure~\ref{fig:obs_freq_domain}.
+The waveform data consists of 1D signals in both time and frequency domains, collected from three separate detectors (referred to as H1, L1, V1) that have captured the event simultaneously. The signal in the time domain consists of three channels (three detectors) and 8192 data points corresponding to 4\,s of collection time at a sampling frequency of 2048\,Hz. An example of the signal in the time domain is shown in Figure~\ref{fig:obs_time_domain}. The time domain can be transformed to the frequency domain through the Fourier transform. The frequency domain contains 4197 data points and six channels (real and imaginary parts of the time signal from three detectors). An example of the signal in the frequency domain is shown in Figure~\ref{fig:obs_freq_domain}. Both the time and frequency domains are fed into the neural network, since they have different information about the GW encoded~\cite{bhardwaj2023peregrine}. 
 
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{media/images/obs_time_domain_lowSNR.png}
-  \caption{Example of generated gravitational wave signal in the time domain. Signals from three detectors are shown. For clarity, the noise and signal are shown separately in the figure, but are added together when training the network. The two black holes merge at the moment t=0s. }
+  \caption{Example of generated gravitational wave signal in the time domain. For clarity, signals from three detectors are shown without noise. The noise signal shows the H1 signal with noise added, which is the actual signal used to train the network. The two black holes merge at the moment t=0s. }
   \label{fig:obs_time_domain}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{media/images/obs_freq_domain_lowSNR.png}
-  \caption{Example of generated gravitational wave signal in the frequency domain. Signals from three detectors are shown. For clarity, the noise and signal are shown separately in the figure, but are added together when training the network.}
+  \caption{Example of generated gravitational wave signal in the frequency domain. For clarity, signals from three detectors are shown without noise. The noise signal shows the H1 signal with noise added, which is the actual signal used to train the network. The two black holes merge at the moment t=0s. }
   \label{fig:obs_freq_domain}
 \end{figure}
 
+% ============================================================================ %
+% Generation of the waveforms
+% ============================================================================ %
+
+\subsection{Generation of the waveforms}
+
+All of the waveforms used in this study were generated using the open-source Bilby code~\cite{Ashton_Bilby_2019}. The Bilby code has functionality to 
+
+which was controlled using the \texttt{swyft} library~\cite{Miller2022}, which is highly efficient and allows the user to implement their own \texttt{Simulator} class~\cite{bhardwaj2023peregrine}.
+
+
+
+The waveform data consists of 1D signals 
+
+Gravitational waves are detected using highly sensitive laser interferometers. 
+
+ The gravitational waveforms of three LIGO detectors (Hanford, Washington and Livingston) were generated as a function of 15 independent parameters. Ten of these parameters represented intrinsic properties of the source e.g. the masses and spins of the two black holes, while five of these are extrinsic parameters e.g. the distance from the source and orientation in the sky with respect to the observations. Further details of the parameters are listed in Table~\ref{tab:gw_parameters}. Simulating the waveforms for training the neural network is necessary since we need $\sim$100000 waveforms for training and experimentally measured signals are rare (only 90 detections so far).
+
+Only low SNR case considered because high SNR is unrealistic and it is important for the network to determine signal from noise. Peregrine benchmark.
+
+\todo[inline]{Complete table}
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Parameter} & \textbf{Prior dist.} & \textbf{Injection Value} \\
+\hline
+Mass ratio, \( q \) & \( U(0.125, 1) \) & 0.8858 \\
+Chirp mass, \( M \) [\( M_{\odot} \)] & \( U(25, 100) \) & 32.14 \\
+Inclination angle, \( \theta_{jn} \) [rad] & sin(0, \( \pi \)) & 0.4432 \\
+Phase, \( \phi_c \) [rad] & \( U(0, 2\pi) \) & 5.089 \\
+Tilt angle, \( \theta_1 \) [rad] & sin(0, \( \pi \)) & 1.497 \\
+Tilt angle, \( \theta_2 \) [rad] & sin(0, \( \pi \)) & 1.102 \\
+Spin, \( a_1 \) & \( U(0.05, 1) \) & 0.9702 \\
+Spin, \( a_2 \) & \( U(0.05, 1) \) & 0.8118 \\
+Spin angle, \( \phi_{12} \) [rad] & \( U(0, 2\pi) \) & 6.220 \\
+Spin angle, \( \phi_{jl} \) [rad] & \( U(0, 2\pi) \) & 1.885 \\
+Luminosity Distance, \( d_L \) [Mpc] & \( U_{\text{vol}}(100, 2000) \) & 900 \\
+Right ascension, \( \alpha \) [rad] & \( U(0, 2\pi) \) & 5.556 \\
+Declination, \( \delta \) [rad] & cos(-\( \pi/2 \), \( \pi/2 \)) & 0.071 \\
+Polarisation angle, \( \psi \) [rad] & \( U(0, \pi) \) & 1.100 \\
+Merger time, \( t_c \) [GPS s] & \( U(-0.1, 0.1) \) & 0.000 \\
+\hline
+\end{tabular}
+\caption{Description and type of the parameters that fully describe the detected gravitational waves. The injection values refer to the parameters used for the generated target observation, $x_0$.}
+\label{tab:gw_parameters}
+\end{table}
+
+The data used in this study was simulated using the open-source Bilby code~\cite{Ashton_Bilby_2019}.
 Only low signal to noise signal will be considered here since the high SNR is unphysical and the low SNR is more challenging. Many moving parts to problem - number of truncation rounds, the number of simulations per round, network architecture, the truncation, the sampling strategy of the priors.
 
 % ============================================================================ %
@@ -106,40 +123,89 @@ The current rendition of the Peregrine pipeline requires 8 rounds of sequential 
 
 Trainer settings.
 
+Joint and marginal pairs.
+
 % ============================================================================ %
 % Overview
 % ============================================================================ %
 \subsection{Overview of approach}
 
-Focus on the loss 
-
-% ============================================================================ %
-% Transformer models
-% ============================================================================ %
-\subsection{Transformer models}
-
-
-
-\subsubsection{Hyperparameter tuning}
-
-RayTune was used to tune hyperparameters. 
-
-\subsubsection{Pretraining}
-
-Transformers were pretrained for 24 hours with single A100 gpu on 2 million waveforms.
-
+We ran Peregrine with the following changes to the network architecture. For maximum consistency, all other settings remained the same. 
 
 % ============================================================================ %
 % Attention U-Net
 % ============================================================================ %
 \subsection{Attention U-Net}
 
+The UNet modelled was modified to include the attention gate.
+
+% ============================================================================ %
+% Transformer models
+% ============================================================================ %
+\subsection{Transformer models}
+
+Two transformer architectures were considered, the so-called 1D vanilla vision transformer~\cite{Dosovitskiy_2021_ViT,}, and an architecture that was specifically designed for multi-variate time series representation learning~\cite{Zerveas_2020_mvts}.
+
+\subsubsection{Hyperparameter tuning}
+
+To find the optimal hyperparameters for each of the two models, we used the Python library Ray Tune~cite{liaw2018tune} in combination with the Hyperopt \enquote{Tree-structured Parzen Estimator} search algorithm~\cite{Bergstra_Bardenet_Bengio_Kégl_2011}. Ray Tune provides the framework to explore the hyperparameter space in a highly efficient way. 
+
+Ray Tune works by at first randomly selecting hyperparameters (in this case )
+
+\begin{table}[h]
+    \centering
+    \caption{Hyperparameters for ViT}
+    \label{tab:config_parameters}
+    \begin{tabular}{@{}ll@{}}
+    \toprule
+    Parameter       & Values \\ 
+    \midrule
+    batch\_size     & \texttt{tune.sample\_from(lambda spec: spec.config.patch\_size * 8)} \\
+    learning\_rate  & \texttt{tune.loguniform(3e-5, 2e-4)} \\
+    patch\_size     & \texttt{tune.choice([4, 8, 16])} \\
+    num\_classes    & \texttt{tune.choice([16, 24, 32])} \\
+    dim             & \texttt{tune.choice([256, 512, 1024])} \\
+    depth           & \texttt{tune.randint(4, 10)} \\
+    heads           & \texttt{tune.randint(4, 10)} \\
+    mlp\_dim        & \texttt{tune.choice([1024, 2048])} \\
+    dropout         & \texttt{tune.choice([0, 0.05, 0.1])} \\
+    emb\_dropout    & \texttt{tune.choice([0, 0.05, 0.1])} \\
+    max\_num\_epochs & \texttt{max\_num\_epochs}        \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \caption{Hyperparameters for tuning in mvts}
+    \label{tab:config_parameters}
+    \begin{tabular}{@{}ll@{}}
+    \toprule
+    Parameter       & Values \\ 
+    \midrule
+    batch_size = tune.choice([1]),
+    learning_rate = tune.choice([1e-3, 3e-4, 1e-4]),
+    d_model = tune.choice([128,256,512]),
+    n_heads = tune.choice([4,8,16]),
+    num_layers = tune.choice([3,4,5,6,7,8]),
+    dim_feedforward = tune.choice([256,512,1024]),
+    dropout = tune.choice([0, 0.05, 0.1]),
+    pos_encoding = tune.choice(['fixed','learnable']),
+    max_num_epochs = max_num_epochs,
+    \end{tabular}
+\end{table}
+
+\subsubsection{Pretraining}
+
+Transformers were pretrained for 24 hours with single A100 gpu on 2 million waveforms. After pretraining the saved weights were used to initialise the network during each Peregrine run.
 
 
 % ============================================================================ %
 % Pruning
 % ============================================================================ %
 \subsection{Pruning}
+
+To reduce the size of the network we implemented some pruning methods with the DepGraph library~\cite{Fang_Ma_Song_Mi_Wang_2023}.
 
 
 %The architecture of the network currently implemented in \texttt{peregrine} is the U-Net architecture~\cite{Ronneberger_UNet_2015}. Given the advances in machine learning and CNN architectures since 2015, it is believed that this network can be improved upon. The optimisation of this network architecture will be the main focus of this thesis. 

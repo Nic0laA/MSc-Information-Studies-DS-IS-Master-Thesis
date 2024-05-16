@@ -3,14 +3,14 @@
 % Mention scientific context/field, problem statement, research gap and candidate (sub) research question(s). 
 
 Gravitational Waves (GW) are ripples in the fabric of space-time originating from the acceleration of massive astronomical objects e.g. the merger of black holes or neutron stars. 
-Analysis of gravitational waves can be used to infer physical information regarding their source of origin, as well as provide the opportunity to observe the universe in an entirely new way.
+Analysis of gravitational waves can be used to infer properties of the source, as well as opening opportunities to observe the universe in an entirely new way.
 
 Since the first direct detection of gravitational waves in 2015 \cite{LIGO_2016}, the detector sensitivities and survey volumes are ever-increasing. The substantial rise in detection rate of events over time is introducing significant data analysis challenges for the gravitational wave community \cite{bhardwaj2023peregrine}.
 For instance, current data analysis pipelines are not equipped to deal with independent signals arriving coincidentally in detectors, and scale poorly as the dimensionality of the problem increases \cite{alvey2023things}. This makes the analysis of large number of overlapping signals, or those containing non-stationary noise increasingly complicated and computationally expensive \cite{bhardwaj2023peregrine}.
 
-The \texttt{peregrine} inference pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges \cite{bhardwaj2023peregrine}. It utilises the Simulation-based inference (SBI) method based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm with the U-Net Convolutional Neural Network (CNN) architecture. The \texttt{peregrine} pipeline consists of multiple rounds of network training and inference, which comes with a high simulation cost. It is therefore highly beneficial for the network to be as fast and as accurate as possible. This thesis explores the possibilities to optimise the network architecture underlying the \texttt{peregrine} code. The main research question will be: 
+The \texttt{peregrine} inference pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges~\cite{bhardwaj2023peregrine}. It utilises the Simulation-based inference (SBI) method based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm with the U-Net Convolutional Neural Network (CNN) architecture. The \texttt{peregrine} pipeline consists of multiple rounds of network training and inference, which comes with a high simulation cost. It is therefore highly beneficial for the network to be as fast and as accurate as possible. This thesis explores the possibilities to optimise the network architecture underlying the \texttt{peregrine} code. The main research question will be: 
 
-\noindent \textit{RQ: To what extent can the optimisation of the \texttt{peregrine} network architecture reduce the simulation budget, while still producing the same results as the original \texttt{peregrine}?}
+\noindent \textit{RQ:To what extent can the optimisation of the \texttt{peregrine} network architecture reduce the simulation budget, while still producing the same results as the original \texttt{peregrine}?}
 
 Smaller sub-questions to be addressed include:
 
