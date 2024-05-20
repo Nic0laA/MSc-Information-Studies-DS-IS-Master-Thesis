@@ -6,8 +6,48 @@
 \subsection{Transformer models}
 
 % Show loss curve of UNet, ViT and MVTS transformer. 
+In this section, we show the results during the pretraining of the transformer models
+
+We can conclude that the ViT does not extract any additional features from the data, since the loss plateus to the same value. However, due to extra features the ViT is much slower. The mvts model is not a good model.
+
+The pretrained ViT model was used for the evaluation of Peregrine.
+
+AUROC for 15 features after 24 hours of training.
+
+\begin{table}
+    \caption{Loss values for each of the features}
+    \begin{tabular}{lrrr}
+    \toprule
+    feature & mvts & vit & unet \\
+    \midrule
+    mass_ratio & -0.231 & -0.295 & -0.300 \\
+    chirp_mass & -0.542 & -0.676 & -0.701 \\
+    theta_jn & -0.327 & -0.463 & -0.426 \\
+    phase & 0.000 & 0.000 & 0.000 \\
+    tilt_1 & -0.107 & -0.167 & -0.174 \\
+    tilt_2 & -0.018 & -0.036 & -0.036 \\
+    a_1 & -0.078 & -0.104 & -0.132 \\
+    a_2 & -0.005 & -0.008 & -0.007 \\
+    phi_12 & 0.000 & 0.000 & 0.000 \\
+    phi_jl & -0.199 & -0.291 & -0.287 \\
+    luminosity_distance & -0.196 & -0.294 & -0.291 \\
+    dec & -0.830 & -0.923 & -0.899 \\
+    ra & -1.020 & -1.085 & -1.066 \\
+    psi & -0.063 & -0.117 & -0.090 \\
+    geocent_time & -0.965 & -1.104 & -1.105 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Peregrine Network}
+
+
+\subsection{Peregrine Run Strategy}
+
+% Network reinitialisation
+% Sampling strategy
+% Simulation scheduling
 
 % Compare posteriors of 
-
 
 % Sometimes,  especially  if  you  have  quite  different experiments or research  questions,  it makes sense to interleave the experimental setup and the results sections, so the reader does not get lost. It is then helpful to structure clearly in (sub)subsections.

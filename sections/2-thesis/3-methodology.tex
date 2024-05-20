@@ -115,6 +115,8 @@ Fifteen individual binary classifiers. Minimise binary cross-entropy loss.
 
 Noise shuffling.
 
+Number of trainable parameters for each model.
+
 % \subsection{Optimising of sampling efficiency}
 
 % We will investigate whether some more active learning can be introduced to increase the efficiency of the sampling process. For instance, some parameters such as the chirp mass\footnote{The chirp mass is a combination of the two object masses in the binary system, and is a key factor in the gravitational wave frequency as the two objects spiral inwards toward each other.\\$\mathcal{M} = \frac{(m_1 \cdot m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$} may be inferred early on with relatively high confidence, but currently in successive simulation rounds continues to be sampled from a uniform distribution within $\pm5\sigma$~\cite{Miller_TMNRE_2021}. We will investigate whether it's possible to be more selective in the sampling of parameters that are known with relatively high confidence in an un-biased way. Therefore, we can focus the simulation budget more on the parameters we know with less confidence. To do this in a systematic way, a complete survey of how influential each parameter is on the different segments of the GW signal will be carried-out first.
@@ -197,7 +199,7 @@ Ray Tune works by at first randomly selecting hyperparameters (in this case )
 
 \subsubsection{Pretraining}
 
-Transformers were pretrained for 24 hours with single A100 gpu on 2 million waveforms. After pretraining the saved weights were used to initialise the network during each Peregrine run.
+Transformers were pretrained for 24 hours with single A100 gpu on 2 million waveforms. After pretraining the saved weights were used to initialise the network during each Peregrine run. 95\% train, 5\% test. Regular validation checks of loss to ensure no overfitting and measure learning performance.
 
 
 % ============================================================================ %
@@ -206,7 +208,6 @@ Transformers were pretrained for 24 hours with single A100 gpu on 2 million wave
 \subsection{Pruning}
 
 To reduce the size of the network we implemented some pruning methods with the DepGraph library~\cite{Fang_Ma_Song_Mi_Wang_2023}.
-
 
 %The architecture of the network currently implemented in \texttt{peregrine} is the U-Net architecture~\cite{Ronneberger_UNet_2015}. Given the advances in machine learning and CNN architectures since 2015, it is believed that this network can be improved upon. The optimisation of this network architecture will be the main focus of this thesis. 
 
