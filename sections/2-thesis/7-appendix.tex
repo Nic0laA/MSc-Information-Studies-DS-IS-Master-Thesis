@@ -9,6 +9,146 @@
 \section{First Appendix}
 \label{sec:apx:first_appendix}
 
-Put your appendices here.
+\begin{figure}[htb]
+	\centering
+	\begin{tikzpicture}[node distance=1.0cm]
+		
+    %%% NODES
+    
+    \node (input) [input, label=west:\tiny 8192$\times$3, text width=2cm] {\small Input wave, $d(t)+n(t)$};
+
+    \node (conv1) [conv, below of=input, label=west:\tiny 8192$\times$16] {\small 3$\times$1 conv, 16};
+    \node (conv2) [conv, below of=conv1, label=west:\tiny 8192$\times$16] {\small 3$\times$1 conv, 16};
+    
+    \node (pool1) [pool, below of=conv2, label=west:\tiny 1024$\times$16] {\small max pool, /8};
+    
+    \node (conv3) [conv, below of=pool1, label=west:\tiny 1024$\times$32] {\small 3$\times$1 conv, 32};
+    \node (conv4) [conv, below of=conv3, label=west:\tiny 1024$\times$32] {\small 3$\times$1 conv, 32};
+    
+    \node (pool2) [pool, below of=conv4, label=west:\tiny 128$\times$32] {\small max pool, /8};
+    
+    \node (conv5) [conv, below of=pool2, label=west:\tiny 128$\times$64] {\small 3$\times$1 conv, 64};
+    \node (conv6) [conv, below of=conv5, label=west:\tiny 128$\times$64] {\small 3$\times$1 conv, 64};
+    
+    \node (pool3) [pool, below of=conv6, label=west:\tiny 16$\times$64] {\small max pool, /8};
+    
+    \node (conv7) [conv, below of=pool3, label=west:\tiny 16$\times$128] {\small 3$\times$1 conv, 128};
+    \node (conv8) [conv, below of=conv7, label=west:\tiny 16$\times$128] {\small 3$\times$1 conv, 128};
+    
+    \node (pool4) [pool, below of=conv8, label=west:\tiny 2$\times$128] {\small max pool, /8};
+
+    \node (conv9) [conv, below of=pool4, label=west:\tiny 2$\times$256] {\small 3$\times$1 conv, 256};
+    \node (conv10) [conv, below of=conv9, label=west:\tiny 2$\times$256] {\small 3$\times$1 conv, 256};
+    
+    %%%%%
+    
+    \node (upconv1) [upconv, right of=conv10, label=east:\tiny 2$\times$128, xshift=3.5cm] {\small 3$\times$1 upconv, 128};
+    \node (zp1) [concat, above of=upconv1, label=east:\tiny 16$\times$128, yshift=-0.49cm] {\small Zero-padding \hspace{0.4cm} };
+    \node (concat1) [concat, above of=zp1, label=east:\tiny 32$\times$128, yshift=-0.3cm] {\small Concatenation \hspace{0.25cm} };
+    \node (upconvrelu1) [convx2, text width=3cm, above of=concat1, label=east:\small \hspace{-0.25cm} $\times$2 \tiny 16$\times$128] {\small 3$\times$1 conv, 128, stride 2 + ReLU};
+    
+    \node (AG1) [AG, left of=concat1, xshift=-1.5cm] {\footnotesize $\sim$};
+
+    \node (upconv2) [upconv, above of=upconvrelu1, label=east:\tiny 16$\times$64] {\small 3$\times$1 upconv, 64};
+    \node (zp2) [concat, above of=upconv2, label=east:\tiny 128$\times$64, yshift=-0.49cm] {\small Zero-padding \hspace{0.25cm} };
+    \node (concat2) [concat, above of=zp2, label=east:\tiny 256$\times$64, yshift=-0.3cm] {\small Concatenation \hspace{0.25cm} };
+    \node (upconvrelu2) [convx2, text width=3cm, above of=concat2, label=east:\small \hspace{-0.25cm} $\times$2 \tiny 128$\times$64] {\small 3$\times$1 conv, 64, stride 2 + ReLU};
+    
+    \node (AG2) [AG, left of=concat2, xshift=-1.5cm] {\footnotesize $\sim$};
+
+    \node (upconv3) [upconv, above of=upconvrelu2, label=east:\tiny 128$\times$32] {\small 3$\times$1 upconv, 32};
+    \node (zp3) [concat, above of=upconv3, label=east:\tiny 1024$\times$32, yshift=-0.49cm] {\small Zero-padding \hspace{0.25cm} };
+    \node (concat3) [concat, above of=zp3, label=east:\tiny 2048$\times$32, yshift=-0.3cm] {\small Concatenation \hspace{0.25cm} };
+    \node (upconvrelu3) [convx2, text width=3cm, above of=concat3, label=east:\small \hspace{-0.25cm} $\times$2 \tiny 1024$\times$32] {\small 3$\times$1 conv, 32, stride 2 + ReLU};
+    
+    \node (AG3) [AG, left of=concat3, xshift=-1.5cm] {\footnotesize $\sim$};
+    
+    \node (upconv4) [upconv, above of=upconvrelu3, label=east:\tiny 1024$\times$16] {\small 3$\times$1 upconv, 16};
+    \node (zp4) [concat, above of=upconv4, label=east:\tiny 8192$\times$16, yshift=-0.49cm] {\small Zero-padding \hspace{0.25cm} };
+    \node (concat4) [concat, above of=zp4, label=east:\tiny 16384$\times$16, yshift=-0.3cm] {\small Concatenation \hspace{0.25cm} };
+    \node (upconvrelu4) [convx2, text width=3cm, above of=concat4, label=east:\small \hspace{-0.25cm} $\times$2 \tiny 8192$\times$16] {\small 3$\times$1 conv, 16, stride 2 + ReLU};
+    
+    \node (AG4) [AG, left of=concat4, xshift=-1.5cm] {\footnotesize $\sim$};
+
+    \node (outconv) [outconv, above of=upconvrelu4, label=east:\tiny 8192$\times$1] {1x1 conv, 1};
+    
+    %%%
+    
+    \node (flatten) [flatten, right of=outconv, label=east:\tiny 8192$\times$1, xshift=3.25cm] {Flatten};
+    \node (fc1) [fc, below of=flatten, label=east:\tiny 1024$\times$1] {Linear};
+    \node (fc2) [fc, below of=fc1, label=east:\tiny 256$\times$1] {Linear};
+    \node (fc3) [fc, below of=fc2, label=east:\tiny 64$\times$1] {Linear};
+    \node (fc4) [fc, below of=fc3, label=east:\tiny 16$\times$1] {Linear};
+    \node (summary) [summary, below of=fc4, label=east:\tiny 16$\times$1, yshift=-0.5cm] {Summary Map};
+    
+    %%% EDGES
+                
+    \draw [arrow_unet] (input) -- node[anchor=west]{}(conv1);
+    
+    \draw [arrow_unet] (conv1) -- node[anchor=west]{\footnotesize ReLU}(conv2);
+    \draw [arrow_unet] (conv2) -- node[anchor=west]{\footnotesize ReLU}(pool1);
+    \draw [arrow_unet] (pool1) -- node[anchor=west]{}(conv3);
+    \draw [arrow_unet] (conv3) -- node[anchor=west]{\footnotesize ReLU}(conv4);
+    \draw [arrow_unet] (conv4) -- node[anchor=west]{\footnotesize ReLU}(pool2);
+    \draw [arrow_unet] (pool2) -- node[anchor=west]{}(conv5);
+    \draw [arrow_unet] (conv5) -- node[anchor=west]{\footnotesize ReLU}(conv6);
+    \draw [arrow_unet] (conv6) -- node[anchor=west]{\footnotesize ReLU}(pool3);
+    \draw [arrow_unet] (pool3) -- node[anchor=west]{}(conv7);
+    \draw [arrow_unet] (conv7) -- node[anchor=west]{\footnotesize ReLU}(conv8);
+    \draw [arrow_unet] (conv8) -- node[anchor=west]{\footnotesize ReLU}(pool4);
+    \draw [arrow_unet] (pool4) -- node[anchor=west]{}(conv9);
+    \draw [arrow_unet] (conv9) -- node[anchor=west]{\footnotesize ReLU}(conv10);
+    
+    \draw [arrow_unet] (conv10) -- +(0,-1) node[pos=0.5, right]{\footnotesize ReLU} -| node[pos=0.25, above]{Bottleneck}(upconv1);
+    
+    %%%
+    
+    \draw [arrow_unet] (zp1) -| node[anchor=east]{}(AG1);			
+    \draw [arrow_unet] (conv8) -| node[anchor=west]{}(AG1);
+    \draw [arrow_unet] (AG1) -- node[anchor=west]{}(concat1);
+    
+    \draw [arrow_unet] (zp1) -- node[anchor=west]{}(concat1);
+    \draw [arrow_unet] (concat1) -- node[anchor=west]{}(upconvrelu1);			
+    \draw [arrow_unet] (upconvrelu1) -- node[anchor=west]{}(upconv2);			
+    
+    \draw [arrow_unet] (zp2) -| node[anchor=east]{}(AG2);			
+    \draw [arrow_unet] (conv6) -| node[anchor=west]{}(AG2);
+    \draw [arrow_unet] (AG2) -- node[anchor=west]{}(concat2);
+    
+    \draw [arrow_unet] (zp2) -- node[anchor=west]{}(concat2);
+    \draw [arrow_unet] (concat2) -- node[anchor=west]{}(upconvrelu2);			
+    \draw [arrow_unet] (upconvrelu2) -- node[anchor=west]{}(upconv3);	
+    
+    \draw [arrow_unet] (zp3) -| node[anchor=east]{}(AG3);			
+    \draw [arrow_unet] (conv4) -| node[anchor=west]{}(AG3);
+    \draw [arrow_unet] (AG3) -- node[anchor=west]{}(concat3);
+    
+    \draw [arrow_unet] (zp3) -- node[anchor=west]{}(concat3);
+    \draw [arrow_unet] (concat3) -- node[anchor=west]{}(upconvrelu3);			
+    \draw [arrow_unet] (upconvrelu3) -- node[anchor=west]{}(upconv4);	
+    
+    \draw [arrow_unet] (zp4) -| node[anchor=east]{}(AG4);			
+    \draw [arrow_unet] (conv2) -| node[anchor=west]{}(AG4);
+    \draw [arrow_unet] (AG4) -- node[anchor=west]{}(concat4);
+    
+    \draw [arrow_unet] (zp4) -- node[anchor=west]{}(concat4);
+    \draw [arrow_unet] (concat4) -- node[anchor=west]{}(upconvrelu4);			
+    \draw [arrow_unet] (upconvrelu4) -- node[anchor=west]{}(outconv);	
+    
+    %%%
+    
+    \draw [arrow_unet] (outconv) -- +(0,0.75) -| node[anchor=west]{}(flatten);
+    \draw [arrow_unet] (flatten) -- node[anchor=west]{}(fc1);
+    \draw [arrow_unet] (fc1) -- node[anchor=west]{\footnotesize ReLU}(fc2);
+    \draw [arrow_unet] (fc2) -- node[anchor=west]{\footnotesize ReLU}(fc3);
+    \draw [arrow_unet] (fc3) -- node[anchor=west]{\footnotesize ReLU}(fc4);
+    \draw [arrow_unet] (fc4) -- node[anchor=west]{}(summary);
+			
+	\end{tikzpicture}	
+ 
+\caption{The architecture of Attention U-Net as implemented for the processing of the time domain signal. The frequency domain follows the same architecture, but the max pooling layer is a factor of 2, and the initial input wave is 4097$\times$6. The difference between Attention U-Net and original U-Net is the addition of the Attention gates ($\sim$) in the skip layers.}
+\label{fig:Attention_UNet_arch}
+ 
+\end{figure}
 
 \end{appendices}

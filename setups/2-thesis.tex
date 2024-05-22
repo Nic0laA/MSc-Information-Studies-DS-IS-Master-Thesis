@@ -16,7 +16,7 @@
 %% `nofrontpicture` - If you do not wish to have a graphic on your front-page
 %% `nofirstcompanypicture` - If you do not wish to have a graphic on your front-page
 %% `nosecondcompanypicture` - If you do not wish to have a graphic on your front-page
-\documentclass[ds]{mscthesis}
+\documentclass[ds,nofirstcompanypicture]{mscthesis}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT METADATA
@@ -24,13 +24,13 @@
 
 % Thesis related entries
 \title{Simulation-based inference of gravitational waves}
-\subtitle{Testing performance with Vision Transformers}
+\subtitle{Testing performance with state-of-the-art deep-learning models}
 
 % Date on which your thesis is submitted
 \date{30.06.2024}
 
 % 4-5 keywords should do the trick. They should ideally be phrases of 2-4 words or single words.
-\keywords{Simulation-Based Inference, Bayesian Inference, Gravitational Waves, UNet, Vision Transformer}
+\keywords{Simulation-Based Inference, Bayesian Inference, Gravitational Waves, UNet, Attention UNet, Vision Transformer, Time Series data}
 
 % Author data
 \authorname{Nicola Asquith}
@@ -58,6 +58,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
+
+% Peregrine method
+
 \tikzstyle{sample} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=red!30]
 \tikzstyle{simulator} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=4cm, draw=black, fill=blue!30]
 \tikzstyle{network} = [rectangle, rounded corners, minimum width=1cm, minimum height=1cm, text centered, text width=5cm, draw=black, fill=green!30]
@@ -67,6 +70,32 @@
 \tikzstyle{output} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
 
 \tikzstyle{arrow} = [thick, ->, >=stealth]
+
+% UNet architecture
+
+\tikzstyle{input} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=white, fill=white!30]
+\tikzstyle{conv} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{convx2} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{pool} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{upconv} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{concat} = [rectangle, dotted, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=white!30]
+\tikzstyle{outconv} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{flatten} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=lime!30]
+\tikzstyle{fc} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{summary} = [ellipse, minimum width=1cm, minimum height=0.1cm, text centered, text width=1.5cm, draw=black, fill=teal!30]
+\tikzstyle{AG} = [circle, minimum width=0.1cm, minimum height=0.1cm, text centered, draw=black, fill=violet!30]
+
+\tikzstyle{arrow_unet} = [thin, ->, >=stealth]
+
+% Peregrine architecture
+
+\tikzstyle{per_input} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{per_unet} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{per_features} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{per_concat} = [rectangle, dotted, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=white!30]
+\tikzstyle{per_MLP} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{per_labels} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=cyan!30]
+\tikzstyle{per_logratios} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=magenta!30]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONTENT
@@ -81,7 +110,8 @@
 
 \begin{abstract}
 % A summary of results should be included. Avoid citations. Maximum length is 200 words.
-Cover image: https://www.ligo.caltech.edu/page/what-are-gw
+\todo[inline]{Abstract}
+Cover image: Chat GPT-4o
 \end{abstract}
 
 \maketitle

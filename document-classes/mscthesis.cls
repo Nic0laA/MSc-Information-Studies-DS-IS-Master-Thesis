@@ -184,11 +184,11 @@
 \newcommand\firstcompanylogopath[1]{\gdef\@firstcompanylogopath{#1}}  % media/titlepage/sample_company_1.png
 \newcommand\secondcompanylogopath[1]{\gdef\@secondcompanylogopath{#1}}  % media/titlepage/sample_company_2.png
 %% Set default values
-\frontpicturepath{media/titlepage/Gravity_Waves_StillImage.jpg}
+\frontpicturepath{media/titlepage/Gravitational_waves_neural_network_less_vibrant.png}
 % Image from: https://www.ligo.caltech.edu/page/what-are-gw
 
-%\firstcompanylogopath{media/titlepage/ams-ds-logo.png}
-%\secondcompanylogopath{media/titlepage/sample-company-1.png}
+\firstcompanylogopath{media/titlepage/Grappa_logo.png}
+\secondcompanylogopath{media/titlepage/Grappa_logo.png}
 
 % Student data
 \newcommand\authorname[1]{\gdef\@authorname{#1}}
@@ -352,11 +352,11 @@
         \begin{center}
         \mbox{
             \iffirstcompanypicture
-                \includegraphics[width=.1\paperwidth]{\@firstcompanylogopath}\hspace{2ex}
+                \includegraphics[width=.175\paperwidth]{\@firstcompanylogopath}\hspace{2ex}
             \fi
             \includegraphics[width=.1\paperwidth]{media/titlepage/logo-uva.png}\hspace{2ex}
             \ifsecondcompanypicture
-                \includegraphics[width=.1\paperwidth]{\@secondcompanylogopath}
+                \includegraphics[width=.175\paperwidth]{\@secondcompanylogopath}
             \fi
         }
         \end{center}

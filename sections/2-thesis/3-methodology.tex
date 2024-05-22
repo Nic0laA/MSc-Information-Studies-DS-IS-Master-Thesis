@@ -49,30 +49,35 @@ Only low SNR case considered because high SNR is unrealistic and it is important
 
 \begin{table}[htb]
 \centering
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Parameter} & \textbf{Prior dist.} & \textbf{Injection Value} \\
-\hline
-Mass ratio, \( q \) & \( U(0.125, 1) \) & 0.8858 \\
-Chirp mass, \( M \) [\( M_{\odot} \)] & \( U(25, 100) \) & 32.14 \\
-Inclination angle, \( \theta_{jn} \) [rad] & sin(0, \( \pi \)) & 0.4432 \\
-Phase, \( \phi_c \) [rad] & \( U(0, 2\pi) \) & 5.089 \\
-Tilt angle, \( \theta_1 \) [rad] & sin(0, \( \pi \)) & 1.497 \\
-Tilt angle, \( \theta_2 \) [rad] & sin(0, \( \pi \)) & 1.102 \\
-Spin, \( a_1 \) & \( U(0.05, 1) \) & 0.9702 \\
-Spin, \( a_2 \) & \( U(0.05, 1) \) & 0.8118 \\
-Spin angle, \( \phi_{12} \) [rad] & \( U(0, 2\pi) \) & 6.220 \\
-Spin angle, \( \phi_{jl} \) [rad] & \( U(0, 2\pi) \) & 1.885 \\
-Luminosity Distance, \( d_L \) [Mpc] & \( U_{\text{vol}}(100, 2000) \) & 900 \\
-Right ascension, \( \alpha \) [rad] & \( U(0, 2\pi) \) & 5.556 \\
-Declination, \( \delta \) [rad] & cos(-\( \pi/2 \), \( \pi/2 \)) & 0.071 \\
-Polarisation angle, \( \psi \) [rad] & \( U(0, \pi) \) & 1.100 \\
-Merger time, \( t_c \) [GPS s] & \( U(-0.1, 0.1) \) & 0.000 \\
-\hline
-\end{tabular}
 \caption{Description and type of the parameters that fully describe the detected gravitational waves. The injection values refer to the parameters used for the generated target observation, $x_0$.}
 \label{tab:gw_parameters}
+\hspace*{-0.5cm}
+\begin{tabular}{|l|l|l|} 
+\hline
+\textbf{Parameter} & \textbf{Prior dist.} & \textbf{Injection Value} \\ 
+\hline
+\textit{Intrinsic} & & \\ 
+Mass ratio, \( q \) & \( U(0.125, 1) \) & 0.8858 \\ 
+Chirp mass, \( M \) [\( M_{\odot} \)] & \( U(25, 100) \) & 32.14 \\ 
+Inclination angle, \( \theta_{jn} \) [rad] & sin(0, \( \pi \)) & 0.4432 \\ 
+Phase, \( \phi_c \) [rad] & \( U(0, 2\pi) \) & 5.089 \\ 
+Tilt angle, \( \theta_1 \) [rad] & sin(0, \( \pi \)) & 1.497 \\ 
+Tilt angle, \( \theta_2 \) [rad] & sin(0, \( \pi \)) & 1.102 \\ 
+Spin, \( a_1 \) & \( U(0.05, 1) \) & 0.9702 \\ 
+Spin, \( a_2 \) & \( U(0.05, 1) \) & 0.8118 \\ 
+Spin angle, \( \phi_{12} \) [rad] & \( U(0, 2\pi) \) & 6.220 \\ 
+Spin angle, \( \phi_{jl} \) [rad] & \( U(0, 2\pi) \) & 1.885 \\ 
+\hline
+\textit{Extrinsic} & & \\ 
+Luminosity Distance, \( d_L \) [Mpc] & \( U_{\text{vol}}(100, 2000) \) & 900 \\ 
+Right ascension, \( \alpha \) [rad] & \( U(0, 2\pi) \) & 5.556 \\ 
+Declination, \( \delta \) [rad] & cos(-\( \pi/2 \), \( \pi/2 \)) & 0.071 \\ 
+Polarisation angle, \( \psi \) [rad] & \( U(0, \pi) \) & 1.100 \\ 
+Merger time, \( t_c \) [GPS s] & \( U(-0.1, 0.1) \) & 0.000 \\ 
+\hline
+\end{tabular}
 \end{table}
+
 
 The data used in this study was simulated using the open-source Bilby code~\cite{Ashton_Bilby_2019}.
 Only low signal to noise signal will be considered here since the high SNR is unphysical and the low SNR is more challenging. Many moving parts to problem - number of truncation rounds, the number of simulations per round, network architecture, the truncation, the sampling strategy of the priors.
@@ -91,7 +96,7 @@ The workflow for the simulation-based inference technique for the analysis of th
     \begin{tikzpicture}[node distance=2cm]
         \node (sampling) [sample] {\textbf{Sample} parameters $\boldsymbol{\theta}_{GW}$ from prior $p(\boldsymbol{\theta}_{GW})$};
         \node (fsimulator) [simulator, below of=sampling] {\textbf{Simulate} data $\boldsymbol{x}(\theta_{GW}) = h(\theta_{GW}) + n_{IFO}$};
-        \node (network) [network, below of=fsimulator, yshift=-0.25cm] {\textbf{Train} CNN to estimate likelihood-to-evidence ratios $r(\boldsymbol{x};\theta_k) = p(\theta_k|\boldsymbol{x})/p(\theta_k)$ for all parameters $k$};
+        \node (network) [network, below of=fsimulator, yshift=-0.25cm] {\textbf{Train} network to estimate likelihood-to-evidence ratios $r(\boldsymbol{x};\theta_k) = p(\theta_k|\boldsymbol{x})/p(\theta_k)$ for all parameters $k$};
         \node (inference) [inference, below of=network] {Bayesian \textbf{Inference}};
         \node (prior) [pinput, left of=inference, xshift=-1cm] {Prior sample from $p(\theta)$};
         \node (target) [tinput, right of=inference, xshift=1cm] {Target Observation $\boldsymbol{x}_0$};
@@ -108,6 +113,35 @@ The workflow for the simulation-based inference technique for the analysis of th
     \end{tikzpicture}
     \caption{High-level overview of the simulation-based inference method used for this work.}
     \label{fig:peregrine_pipeline}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}[node distance=2cm]
+			%%% NODES
+			\node (dt) [per_input, label=west:\small 8192$\times$3] { $d(t)+n(t)$ };
+			\node (df) [per_input, right of=dt, xshift=1cm, label=east:\small 4097$\times$6] {$\tilde{d}(f)+\tilde{n}(f)$};
+			\node (unet_t) [per_unet, below of=dt, yshift=1cm, text width=2cm] { U-Net / Transformer };
+			\node (unet_f) [per_unet, below of=df, yshift=1cm, text width=2cm] { U-Net / Transformer };
+			\node (feature_t) [per_features, below of=unet_t, label=west:\small 16$\times$1, yshift=1cm] { $t$ feature map };	
+			\node (feature_f) [per_features, below of=unet_f, label=east:\small 16$\times$1, yshift=1cm] { $f$ feature map };
+			\node (concat) [per_concat, below of=feature_t, xshift=1.5cm, label=east:\small 32$\times$1, yshift=1cm] { Concatenated };
+			\node (MLP) [per_MLP, below of=concat, yshift=1cm] { MLP (swyft) };
+			\node (labels) [per_labels, right of=MLP, xshift=0.5cm, text width=1.0cm] { $\theta_{GW}$ labels };
+			\node (lograts) [per_logratios, below of=MLP, label=east:\small 15$\times$1, yshift=1cm] { logratios };
+			%%% EDGES			
+			\draw [arrow_unet] (dt) -- node[anchor=west]{}(unet_t);
+			\draw [arrow_unet] (df) -- node[anchor=west]{}(unet_f);
+			\draw [arrow_unet] (unet_t) -- node[anchor=west]{}(feature_t);
+			\draw [arrow_unet] (unet_f) -- node[anchor=west]{}(feature_f);
+			\draw [arrow_unet] (feature_t) -- node[anchor=west]{}(concat);
+			\draw [arrow_unet] (feature_f) -- node[anchor=west]{}(concat);
+			\draw [arrow_unet] (concat) -- node[anchor=west]{}(MLP);
+			\draw [arrow_unet] (labels) -- node[anchor=west]{}(MLP);
+			\draw [arrow_unet] (MLP) -- node[anchor=west]{}(lograts);
+    \end{tikzpicture}
+    \caption{Details of the neural network step in Peregrine. The numbers outside the boxes represent the output size of each step. Details of the U-Net architecture are given in Figure \ref{fig:Attention_UNet_arch} in the appendix.}
+    \label{fig:peregrine_network_step}
 \end{figure}
 
 
@@ -162,38 +196,39 @@ Ray Tune works by at first randomly selecting hyperparameters (in this case )
     \toprule
     Parameter       & Values \\ 
     \midrule
-    batch\_size     & \texttt{tune.sample\_from(lambda spec: spec.config.patch\_size * 8)} \\
-    learning\_rate  & \texttt{tune.loguniform(3e-5, 2e-4)} \\
-    patch\_size     & \texttt{tune.choice([4, 8, 16])} \\
-    num\_classes    & \texttt{tune.choice([16, 24, 32])} \\
-    dim             & \texttt{tune.choice([256, 512, 1024])} \\
-    depth           & \texttt{tune.randint(4, 10)} \\
-    heads           & \texttt{tune.randint(4, 10)} \\
-    mlp\_dim        & \texttt{tune.choice([1024, 2048])} \\
-    dropout         & \texttt{tune.choice([0, 0.05, 0.1])} \\
-    emb\_dropout    & \texttt{tune.choice([0, 0.05, 0.1])} \\
-    max\_num\_epochs & \texttt{max\_num\_epochs}        \\ \bottomrule
+    batch size     & 16, 32, 64, 128 \\
+    learning rate  & loguniform(3e-5, 2e-4) \\
+    patch size     & 4, 8, 16 \\
+    num classes    & 16, 24, 32 \\
+    dim             & 256, 512, 1024 \\
+    depth           & 4--10 \\
+    heads           & 4--10 \\
+    mlp dim        & 1024, 2048 \\
+    dropout         & 0, 0.05, 0.1 \\
+    emb dropout    & 0, 0.05, 0.1 \\
+    max num epochs & 10  \\ 
+    \bottomrule
     \end{tabular}
 \end{table}
 
 
 \begin{table}[h]
     \centering
-    \caption{Hyperparameters for tuning in mvts}
+    \caption{Hyperparameter options for tuning in mvts}
     \label{tab:config_parameters}
     \begin{tabular}{@{}ll@{}}
     \toprule
     Parameter       & Values \\ 
     \midrule
-    batch_size = tune.choice([1]),
-    learning_rate = tune.choice([1e-3, 3e-4, 1e-4]),
-    d_model = tune.choice([128,256,512]),
-    n_heads = tune.choice([4,8,16]),
-    num_layers = tune.choice([3,4,5,6,7,8]),
-    dim_feedforward = tune.choice([256,512,1024]),
-    dropout = tune.choice([0, 0.05, 0.1]),
-    pos_encoding = tune.choice(['fixed','learnable']),
-    max_num_epochs = max_num_epochs,
+    batch size & 16,32,64 \\
+    learning rate & 1e-3, 3e-4, 1e-4 \\
+    dim model & 128, 256, 512 \\
+    num heads & 4, 8, 16 \\
+    num layers & 3, 4, 5, 6, 7, 8 \\
+    dim feedforward & 256, 512, 1024 \\
+    dropout & 0, 0.05, 0.1 \\
+    pos encoding & fixed, learnable \\
+    max num epochs & 10 \\
     \end{tabular}
 \end{table}
 
