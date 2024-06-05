@@ -16,7 +16,7 @@
 %% `nofrontpicture` - If you do not wish to have a graphic on your front-page
 %% `nofirstcompanypicture` - If you do not wish to have a graphic on your front-page
 %% `nosecondcompanypicture` - If you do not wish to have a graphic on your front-page
-\documentclass[ds,nofirstcompanypicture]{mscthesis}
+\documentclass[ds,nofirstcompanypicture,nolinenumbering]{mscthesis}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT METADATA
@@ -24,7 +24,7 @@
 
 % Thesis related entries
 \title{Simulation-based inference of gravitational waves}
-\subtitle{Testing performance with state-of-the-art deep-learning models}
+\subtitle{Assessing performance with state-of-the-art deep-learning models}
 
 % Date on which your thesis is submitted
 \date{30.06.2024}
@@ -38,8 +38,8 @@
 \authoremail{nicola.asquith@student.uva.nl}
 
 % Supervisors
-\uvasupervisorname{Christoph Weniger}
-\uvasupervisoraffiliation{GRAPPA Institute Institute for Theoretical Physics}
+\uvasupervisorname{Associate Professor, Christoph Weniger}
+\uvasupervisoraffiliation{GRAPPA Institute for Theoretical Physics}
 \uvasupervisoremail{C.Weniger@uva.nl}
 
 % Comment if you do not have an external supervisor
@@ -52,6 +52,7 @@
 % \titlepicturepath{}
 % \firstcompanypicturepath{}
 % \secondcompanypicture{path}
+\usepackage{csquotes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % tikz library
@@ -83,9 +84,10 @@
 \tikzstyle{flatten} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=lime!30]
 \tikzstyle{fc} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=red!30]
 \tikzstyle{summary} = [ellipse, minimum width=1cm, minimum height=0.1cm, text centered, text width=1.5cm, draw=black, fill=teal!30]
-\tikzstyle{AG} = [circle, minimum width=0.1cm, minimum height=0.1cm, text centered, draw=black, fill=violet!30]
+\tikzstyle{AG} = [circle, dashed, minimum width=0.1cm, minimum height=0.1cm, text centered, draw=black, fill=violet!30]
 
 \tikzstyle{arrow_unet} = [thin, ->, >=stealth]
+\tikzstyle{arrow_unet_dotted} = [dashed, thin, ->, >=stealth]
 
 % Peregrine architecture
 
@@ -97,6 +99,16 @@
 \tikzstyle{per_labels} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=cyan!30]
 \tikzstyle{per_logratios} = [rectangle, minimum width=1cm, minimum height=0.1cm, text centered, draw=black, fill=magenta!30]
 
+% Attention gate
+
+\tikzstyle{wg} = [rectangle, text centered, draw=black, fill=blue!30]
+\tikzstyle{wx} = [rectangle, text centered, draw=black, fill=blue!30]
+\tikzstyle{plus} = [circle, text centered,  text width=0.2cm, draw=black, fill=white!30]
+\tikzstyle{relu} = [rectangle, text centered, draw=black, fill=white!30]
+\tikzstyle{psi} = [rectangle, text centered, draw=black, fill=blue!30]
+\tikzstyle{sigmoid} = [rectangle, text centered, draw=black, fill=white!30]
+\tikzstyle{times} = [circle, text centered, text width=0.2cm, draw=black, fill=white!30]
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONTENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,12 +118,13 @@
 
 \maketitlepage
 \fixemptypage
-\setcounter{page}{0}
+\setcounter{page}{1}
 
 \begin{abstract}
 % A summary of results should be included. Avoid citations. Maximum length is 200 words.
-\todo[inline]{Abstract}
-Cover image: Chat GPT-4o
+
+The detection and analysis of gravitational waves (GW) is providing the opportunity to study the universe from a new perspective. Current methods of parameter inference from GW are computationally expensive, and the expected increase in detected events in the future is introducing significant data analytics challenges for the GW community. In this work, we focus on a specific analysis pipeline, \texttt{Peregrine}, which performs multiple sequential rounds of simulation-based inference employing the U-Net CNN architecture. The major bottleneck for performance in this pipeline is the network training time. Attention mechanisms, particularly as applied in in transformer models have become very popular in recent years due to their reported high performance. We compare the performance of \texttt{Peregrine} with the baseline U-Net model with several variations, including Attention U-Net, pre-trained Vision Transformer, pre-trained multi-variate time series transformer, and finally, structured network pruning of the original U-Net. In conclusion, we found that the best performing model was the original U-Net, and that the use of larger transformer models did not provide any performance improvement. This was predominantly due to longer training times required. The pruned networks could be trained faster but suffered from poorer accuracy in later inference rounds.
+
 \end{abstract}
 
 \maketitle
@@ -122,7 +135,7 @@ Cover image: Chat GPT-4o
 % Sections; Try to stick to this setup but you can comment each section
 \input{sections/2-thesis/1-introduction.tex}
 \input{sections/2-thesis/2a-related-work.tex}
-\input{sections/2-thesis/2b-background-theory.tex}
+%\input{sections/2-thesis/2b-background-theory.tex}
 \input{sections/2-thesis/3-methodology.tex}
 \input{sections/2-thesis/4-results.tex}
 \input{sections/2-thesis/5-discussion.tex}

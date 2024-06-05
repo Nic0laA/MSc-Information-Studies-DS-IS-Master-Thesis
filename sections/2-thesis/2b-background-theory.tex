@@ -2,16 +2,8 @@
 \label{sec:background_theory}
 
 \subsection{Simulation-based inference}
+\label{sec:background_theory_sbi}
 
-In recent years, thanks to the enormous rise in machine learning capabilities, particularly with deep neural networks, simulation-based inference (SBI) methods have experienced rapid expansion \cite{Cranmer_SBI_2020}. SBI is considered to be a highly simulation efficient technique and finds applications in many scientific domains including particle physics, neuroscience, epidemiology, economics, economics, climate science and astrophysics \cite{Cranmer_SBI_2020}.
 
-One of the major limitations of traditional MCMC and nested sampling approaches is that they require the likelihood $P(x|\theta)$, or probability of a given observation occurring to be known in advance. However, SBI does not need an explicit likelihood function up-front, because it is instead given a realistic forward simulator it can sample from.
 
-Using Bayes' theoreom,
-\begin{equation*}
-    P(\theta|x) = \frac{P(\theta|x) P(\theta)}{P(x)}
-\end{equation*}
-Where $P(\theta|x)$ is the posterior of parameters $\theta$ given some observed or simulated data $x$, $P(\theta|x)$ is the likelihood of given data $x$ given input parameters $\theta$, $P(\theta)$ is the prior distribution of $\theta$ and $P(x)$ is the Bayesian evidence of $x$. The power of SBI arises because if you have a forward generative model, $P(x,\theta)=P(\theta|x) P(\theta)$, you are able to sample implicitly from the (simulated) likelihood \cite{Cranmer_SBI_2020}.
-
-\subsection{TMNRE}
 

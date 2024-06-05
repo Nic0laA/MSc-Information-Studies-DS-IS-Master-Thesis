@@ -1,25 +1,22 @@
 \section{Introduction}
 \label{sec:introduction}
 % Mention scientific context/field, problem statement, research gap and candidate (sub) research question(s). 
+\stepcounter{footnote}
+\footnotetext{Cover image: Chat GPT-4o}
 
-Gravitational Waves (GW) are ripples in the fabric of space-time originating from the acceleration of massive astronomical objects e.g. the merger of black holes or neutron stars. These gravitational waves are providing opportunities to observe the universe in an entirely new way.
+Gravitational Waves (GW) are ripples in the fabric of space-time originating from the acceleration of massive astronomical objects e.g. the merger of black holes or neutron stars. The study of gravitational waves is allowing us to observe the universe in an entirely new way.
 
-Since the first direct detection of gravitational waves in 2015~\cite{LIGO_2016}, the detector sensitivities and survey volumes are ever-increasing. The continuous rise in rate of detection events over time is introducing significant data analysis challenges for the gravitational wave community~\cite{bhardwaj2023peregrine}.
+Since the first direct detection of gravitational waves in 2015~\cite{LIGO_2016}, the detector sensitivities and survey volumes are ever-increasing. The continuous rise in detection of events over time is introducing significant data analysis challenges for the gravitational wave community~\cite{bhardwaj2023peregrine}.
 For instance, current data analysis pipelines are not equipped to deal with independent signals arriving coincidentally in detectors, and scale poorly as the dimensionality of the problem increases~\cite{alvey2023things}. This makes the analysis of large number of overlapping signals, or those containing non-stationary noise increasingly complicated and computationally expensive~\cite{bhardwaj2023peregrine}.
 
-The \texttt{peregrine} inference pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges~\cite{bhardwaj2023peregrine}. It utilises the Simulation-based inference (SBI) method based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm with the U-Net Convolutional Neural Network (CNN) architecture. The \texttt{peregrine} pipeline consists of multiple rounds of sequential network training and inference, which comes with a high simulation cost. It is therefore highly beneficial for the network to be as fast and as accurate as possible. This study explores the possibilities to improve the \texttt{peregrine} pipeline using state-of-the-art neural network architectures.
+The \texttt{peregrine} inference pipeline has been developed at the UvA GRAPPA institute to help address some of these challenges~\cite{bhardwaj2023peregrine}. It utilises the Simulation-based inference (SBI) method based on the TMNRE (Truncated Marginal Neural Ratio Estimation) algorithm with the U-Net Convolutional Neural Network (CNN) architecture. The \texttt{peregrine} pipeline incorporates multiple rounds of sequential network training and inference, which comes with a high computation cost. Since the main bottleneck is currently the training time of the network, it is highly beneficial for the network underlying \texttt{peregrine}~\cite{bhardwaj2023peregrine} to be as fast and as accurate as possible. This study explores the possibilities to improve the \texttt{peregrine} pipeline using state-of-the-art neural network architectures.
 
-The main research question is: 
+In the study, we compare the original U-Net model with two pre-trained transformer models~\cite{Dosovitskiy_2021_ViT,Zerveas_2020_mvts}, attention U-Net~\cite{Oktay_2018_AUNet}, as well as use pruning methods~\cite{Fang_Ma_Song_Mi_Wang_2023} to reduce the number of trainable parameters in the current U-Net model. It is important to note that the information \texttt{peregrine} can extract from the GW signal is already at the statistical limit due to measurement noise in the signal. Therefore it is not possible to improve upon the quality of the results further, and thus the aim is rather to reach the same accuracy in a shorter period of time.
 
-\noindent \textit{RQ:To what extent can the optimisation of the \texttt{peregrine} network architecture reduce the simulation budget, while still producing the same results as the original \texttt{peregrine}?}
+The structure of this report is as follows. We provide background and context for the work in section \ref{sec:related_work}, where we describe the current state of gravitational wave analysis methods and introduce the methodologies and network architectures relevant for the remainder of the work. Description of the data, the \texttt{peregrine} pipeline and how the changes to network architecture were implemented and evaluated are given in the methodology section on page \pageref{sec:methodology}. Results and discussion are presented in sections \ref{sec:results} and \ref{sec:discussion} respectively. Finally, conclusions and future outlook can be found in section \ref{sec:conclusion} on page \pageref{sec:conclusion}.
 
-Smaller sub-questions to be addressed include:
+\subsection*{Research question}
 
-\noindent SRQ1: How can we quantify the efficiency of the underlying neural network?
+\noindent \textit{RQ: To what extent can different network architectures in \texttt{peregrine} reduce the training time, while still producing the same results as the original \texttt{peregrine}?}
 
-\noindent SRQ2: How can more efficient sampling methods be used to further improve the computational efficiency of \texttt{peregrine}?
-
-To explore the possibilities of improving the performance of the U-Net CNN within \texttt{peregrine}, we will compare the original U-Net model with two pre-trained transformer models~\cite{Dosovitskiy_2021_ViT,Zerveas_2020_mvts} and attention U-Net~\cite{Oktay_2018_AUNet}, as well as reducing the size of the current U-Net model using pruning methods~\cite{Fang_Ma_Song_Mi_Wang_2023}.
-
-\todo[inline]{Structure of report}
-The structure of this report is as follows. Related work in section bla, background theory in section bla.
+\noindent \textit{SRQ1: What is a suitable metric to assess the performance of the underlying neural network (taking into account both accuracy and training time)?}
