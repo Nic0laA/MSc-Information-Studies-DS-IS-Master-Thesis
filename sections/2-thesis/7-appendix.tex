@@ -6,8 +6,61 @@
 \appendix
 \begin{appendices}
 
-\section{First Appendix}
-\label{sec:apx:first_appendix}
+\section{Posterior Plots}
+\label{sec:apx:posterior_plots}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_original_half_round_8.png}
+  \caption{Comparison between U-Net (blue) and U-Net with half the number of simulations (red) after 8 rounds of TMNRE.}
+  \label{fig:posterior_unet_half}
+  \Description[<short description>]{<long description>}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_NoReinit_round_8.png}
+  \caption{Comparison between U-Net (blue) and U-Net with no re-initialisation (red) after 8 rounds of TMNRE.}
+  \label{fig:posterior_unet_noreinit}
+  \Description[<short description>]{<long description>}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_AttentionUNet_2_round_8.png}
+  \caption{Comparison between U-Net (blue) and Attention U-Net (red) after 8 rounds of TMNRE.}
+  \label{fig:posterior_attention_unet}
+  \Description[<short description>]{<long description>}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_pruned5_2_round_8.png}
+  \caption{Comparison between U-Net (blue) and U-Net 5\% pruned (red) after 8 rounds of TMNRE.}
+  \label{fig:posterior_unet_pruned_5pc}
+  \Description[<short description>]{<long description>}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_pruned10_round_8.png}
+  \caption{Comparison between U-Net (blue) and U-Net 10\% pruned (red) after 8 rounds of TMNRE.}
+  \label{fig:posterior_unet_pruned_10pc}
+  \Description[<short description>]{<long description>}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_ViT_pretrained_2_round_3.png}
+  \caption{Comparison between U-Net (blue) and ViT transformer (red) after 3 rounds of TMNRE.}
+  \label{fig:posterior_vit}
+  \Description[<short description>]{<long description>}
+\end{figure}
+
+\FloatBarrier
+
+\section{U-Net}
+\label{sec:apx:u-net_architecture}
 
 \begin{figure}[htb]
 	\centering
@@ -150,12 +203,16 @@
 \label{fig:Attention_UNet_arch}
  \end{figure}
 
-Hyperparameter tuning
+\section{Hyperparameter tuning}
+\label{sec:apx:Hyperparameter_tuning}
 
-Frequency and time optimised seperately, and then optimised together with the number of classes.
+Hyperparameters for the ViT transformer models were first tuned for the time domain and frequency domain signals separately. Once the optimal hyperparameters for those had been found, an additional step of combining the two models to find the optimal number of classes for each was performed. The dimensions of the MLP was also reassessed to ensure consistency. Results are given in Tables~\ref{tab:hyperparams_vit_t}, \ref{tab:hyperparams_vit_f}, and \ref{tab:hyperparams_vit_combined}.
+
+Results for the hyperparameter tuning of the MTS transformer models is given in Table~\ref{tab:hyperparams_mts}. Due to the optimal hyperparameters of the ViT model for the time and frequency networks being the same, the MTS network was tuned with the time and frequency networks together. The number of classes and patch size was also fixed at 16.
 
 \begin{table}
-\caption{transformer t}
+\caption{Different trials for the hyperparameter tuning of the ViT transformer for the time domain signal. In total there were 69 trials performed, but only the 10 best and 10 worst trials are shown.}
+\label{tab:hyperparams_vit_t}
 \begin{tabular}{rrrrrrrrrrrrr}
 \toprule
 \multicolumn{1}{p{0.5cm}}{\raggedleft Batch size} & 
@@ -198,7 +255,8 @@ Frequency and time optimised seperately, and then optimised together with the nu
 \end{table}
 
 \begin{table}
-\caption{transformer f}
+\caption{Different trials for the hyperparameter tuning of the ViT transformer for the frequency domain signal. In total there were 77 trials performed, but only the 10 best and 10 worst trials are shown.}
+\label{tab:hyperparams_vit_f}
 \begin{tabular}{rrrrrrrrrrrrr}
 \toprule
 \multicolumn{1}{p{0.5cm}}{\raggedleft Batch size} & 
@@ -241,7 +299,8 @@ Frequency and time optimised seperately, and then optimised together with the nu
 \end{table}
 
 \begin{table}
-\caption{transformer combined}
+\caption{Different trials for the hyperparameter tuning of the ViT transformer after the other hyperparameters had been optimised for the time and frequency networks seperately. In total there were 66 trials performed, but only the 10 best and 10 worst trials are shown.}
+\label{tab:hyperparams_vit_combined}
 \begin{tabular}{rrrrrrrr}
 \toprule
 
@@ -280,7 +339,8 @@ Frequency and time optimised seperately, and then optimised together with the nu
 \end{table}
 
 \begin{table}
-\caption{transformer mvts}
+\caption{Different trials for the hyperparameter tuning of the MTS transformer. In total there were 97 trials performed, but only the 10 best and 10 worst trials are shown.}
+\label{tab:hyperparams_mts}
 \begin{tabular}{rrrrrrrrrrr}
 \toprule
 

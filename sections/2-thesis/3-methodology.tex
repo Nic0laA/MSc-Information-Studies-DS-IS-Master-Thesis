@@ -317,17 +317,11 @@ The current Peregrine pipeline requires 8 rounds of sequential TMNRE, 720000 sim
 
 To compare the performance of the different networks fairly, a suitable metric needs to be chosen. For a binary classifier, the AUROC (Area Under the Receiver Operating Characteristic) curve is a single scalar value that effectively describes the performance of the network over all possible thresholds. A value of 0.5 is a random classifier, while a value of 1 is a perfect classifier. Values between 0.5 and 1 suggest the network has some ability to distinguish between the two classes. We have calculated the AUROC for each parameter, as well as the average over all 15 parameters by applying a softmax function to the raw logits to get the probabilities before feeding into sklearn's \enquote{roc\_auc\_score} function.
 
-However, alt
+Although the AUROC is a simple metric to quantify the performance of the binary classifier, it is not enough in this case. This is because the network trains over several rounds, and the variance of the samples reduces each round. Therefore, in later rounds,  the waveforms become more similar and it becomes more challenging for the network to differentiate between the two classes. Some networks may perform well in the early rounds, but then later on perform poorly. We thus introduce an additional metric, the \enquote{truncation fraction}, which quantifies the fraction of the sampling volume (15D) remaining after truncating the prior distributions at the end of each round. It is a way to measure how effectively the network is able to \enquote{zoom-in} to the parameter range of interest.
 
-How did we measure the performance - loss, AUROC, and sampling fraction.
+The results of the original \texttt{peregrine} have themselves been benchmarked against established likelihood-based methods~\cite{Speagle_2020}, and found to be in good agreement. Therefore, in this work we think it is sufficient to compare only with the original \texttt{peregrine}.
 
-AUROC was computed by extracting the raw logits from the model and applying a softmax function. 
-
-%The changes to the \texttt{peregrine} analysis pipeline will be fully benchmarked against the original \texttt{peregrine}, both in terms of accuracy of final result and required runtime. The results of the original \texttt{peregrine} have themselves been benchmarked against established likelihood-based methods~\cite{Speagle_2020}, and found to be in good agreement. Therefore, in this work we think it is sufficient to compare only with the original \texttt{peregrine}. To demonstrate the applicability of the method to real gravitational wave measurements, if time permits, we will also test the approach using real experimental data.
-
-When comparing network performance, it is not so straightforward, given the sequential nature and requirement for several rounds of training. Some networks may perform very well in the early rounds, but then later on, once the variance of the training samples begin to reduce, perform more poorly.
-
-\todo[inline]{Number of trainable parameters}
+%\todo[inline]{Number of trainable parameters}
 
 %The architecture of the network currently implemented in \texttt{peregrine} is the U-Net architecture~\cite{Ronneberger_UNet_2015}. Given the advances in machine learning and CNN architectures since 2015, it is believed that this network can be improved upon. The optimisation of this network architecture will be the main focus of this thesis. 
 

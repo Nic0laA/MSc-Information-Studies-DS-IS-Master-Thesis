@@ -53,6 +53,9 @@
 % \firstcompanypicturepath{}
 % \secondcompanypicture{path}
 \usepackage{csquotes}
+\usepackage{placeins}
+\usepackage{afterpage}
+\usepackage{adjustbox}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % tikz library
@@ -124,6 +127,7 @@
 % A summary of results should be included. Avoid citations. Maximum length is 200 words.
 
 The detection and analysis of gravitational waves (GW) is providing the opportunity to study the universe from a new perspective. Current methods of parameter inference from GW are computationally expensive, and the expected increase in detected events in the future is introducing significant data analytics challenges for the GW community. In this work, we focus on a specific analysis pipeline, \texttt{Peregrine}, which performs multiple sequential rounds of simulation-based inference employing the U-Net CNN architecture. The major bottleneck for performance in this pipeline is the network training time. Attention mechanisms, particularly as applied in in transformer models have become very popular in recent years due to their reported high performance. We compare the performance of \texttt{Peregrine} with the baseline U-Net model with several variations, including Attention U-Net, pre-trained Vision Transformer, pre-trained multi-variate time series transformer, and finally, structured network pruning of the original U-Net. In conclusion, we found that the best performing model was the original U-Net, and that the use of larger transformer models did not provide any performance improvement. This was predominantly due to longer training times required. The pruned networks could be trained faster but suffered from poorer accuracy in later inference rounds.
+\todo[inline]{Change abstract to be consistent with latest results}
 
 \end{abstract}
 
