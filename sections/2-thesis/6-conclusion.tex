@@ -1,24 +1,29 @@
 \section{Conclusion}
 \label{sec:conclusion}
 % Answer each research question and address how the limitations of the study qualify the conclusion.
-Write your conclusion here. Be sure that the relation between the research gap and your contribution is clear. Be honest about how limitations in the study qualify the answer on the research question.
+% Write your conclusion here. Be sure that the relation between the research gap and your contribution is clear. Be honest about how limitations in the study qualify the answer on the research question.
 
+We have introduced several state-of-the-art modifications to the U-Net network architecture in \texttt{peregrine}, in an attempt to reduce the network training time and relieve the main runtime bottleneck. Two transformer models -- 1D Vision Transformer and Multi-variate Time-Series transformer were assessed. Their performance was found to be inferior compared to the baseline U-Net, which was predominantly due to the longer training times required to train the larger models. In addition, we were unable to reproduce the performance benefits of adding an attention gate into U-Net, as outlined in~\cite{Oktay_2018_AUNet}. Although pruning methods did decrease the training time by $\sim$30\%, we found inconsistent results with the posterior distributions. Therefore, in conclusion, when factoring in both the performance metrics of the network, and the posterior distributions, we find that the network architecture in \texttt{peregrine} is already close to optimal.
 
+\section{Future Recommendations}
+\label{sec:future}
 
-\section{Future Recomendations}
-\label{sec:acknowledgments}
+One of the main challenges uncovered in this work was to optimise the neural network in \texttt{peregrine} based on the (indirect) objective to construct high precision posteriors as efficiently as possible. Due to the many moving parts involved in the overall process e.g. number of TMNRE rounds, number of simulations per round, network architecture, truncation $\epsilon$, sampling strategy of the priors etc., the optimisation process could be simplified if there was a more quantitative way to optimise the network to the posteriors directly. Further research will need to be performed to identify suitable candidates for this.
 
-Find metric that incorporates posteriors of 15 parameters
+Another thing that could be explored is the possibility of introducing a soft-loss function. Currently the classes are assigned to be 1 or 0, depending on whether they are matching (joint) or not (marginal). The marginal samples are constructed by assigning labels randomly shuffled from another sample within the same batch. It is possible that some of the 15 wrong labels could be (almost) matching the right label by chance. Instead of assigning all marginal labels to class 0, training could potentially be improved if labels that are matching are also assigned to class 1 in the marginal samples. That way, the network knows which labels are actually the right and wrong ones for the individual waveform. However, in practice, as the labels are actually continuous variables, a class assigned between 0 and 1, depending on how close the match based on a predetermined margin value will probably be more suitable. It is technically possible to implement this within the current \texttt{swyft} framework, however suitable margin widths for each label and whether it yields any performance benefit are still to be investigated.
 
-Soft-loss function
-
-Representation learning transformers
-
-Simulation schedule
+%Find metric that incorporates posteriors of 15 parameters
+%Soft-loss function
+%Representation learning transformers
+%Simulation schedule
 
 \section{Acknowledgments}
 \label{sec:acknowledgments}
 
 I would like to thank my supervisor, Associate Professor Christoph Weniger of the GRAPPA institute for his continuous support and guidance throughout the course of this thesis project. All computational work was performed using the Snellius computing cluster at SURFsara, which I am also grateful for.
 
-\FloatBarrier
+
+
+%Many moving parts to problem - .
+
+%We will investigate whether some more active learning can be introduced to increase the efficiency of the sampling process. For instance, some parameters such as the chirp mass\footnote{The chirp mass is a combination of the two object masses in the binary system, and is a key factor in the gravitational wave frequency as the two objects spiral inwards toward each other.\\$\mathcal{M} = \frac{(m_1 \cdot m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$} may be inferred early on with relatively high confidence, but currently in successive simulation rounds continues to be sampled from a uniform distribution within $\pm5\sigma$~\cite{Miller_TMNRE_2021}. We will investigate whether it's possible to be more selective in the sampling of parameters that are known with relatively high confidence in an un-biased way. Therefore, we can focus the simulation budget more on the parameters we know with less confidence. To do this in a systematic way, a complete survey of how influential each parameter is on the different segments of the GW signal will be carried-out first.

@@ -11,15 +11,15 @@
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_original_half_round_8.png}
-  \caption{Comparison between U-Net (blue) and U-Net with half the number of simulations (red) after 8 rounds of TMNRE.}
+  \includegraphics[width=0.835\linewidth]{media/images/Posteriors_UNet_original_half_round_8.png}
+  \caption{Comparison between U-Net (blue) and U-Net with half the number of simulations (red) after 8 rounds of TMNRE. The dotted line shows the ground-truth value.}
   \label{fig:posterior_unet_half}
   \Description[<short description>]{<long description>}
 \end{figure}
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_NoReinit_round_8.png}
+  \includegraphics[width=0.835\linewidth]{media/images/Posteriors_UNet_NoReinit_round_8.png}
   \caption{Comparison between U-Net (blue) and U-Net with no re-initialisation (red) after 8 rounds of TMNRE.}
   \label{fig:posterior_unet_noreinit}
   \Description[<short description>]{<long description>}
@@ -28,7 +28,7 @@
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.85\linewidth]{media/images/Posteriors_AttentionUNet_2_round_8.png}
-  \caption{Comparison between U-Net (blue) and Attention U-Net (red) after 8 rounds of TMNRE.}
+  \caption{Comparison between U-Net (blue) and Attention U-Net (red) after 8 rounds of TMNRE. The dotted line shows the ground-truth value.}
   \label{fig:posterior_attention_unet}
   \Description[<short description>]{<long description>}
 \end{figure}
@@ -36,7 +36,7 @@
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_pruned5_2_round_8.png}
-  \caption{Comparison between U-Net (blue) and U-Net 5\% pruned (red) after 8 rounds of TMNRE.}
+  \caption{Comparison between U-Net (blue) and U-Net 5\% pruned (red) after 8 rounds of TMNRE. The dotted line shows the ground-truth value.}
   \label{fig:posterior_unet_pruned_5pc}
   \Description[<short description>]{<long description>}
 \end{figure}
@@ -44,7 +44,7 @@
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.85\linewidth]{media/images/Posteriors_UNet_pruned10_round_8.png}
-  \caption{Comparison between U-Net (blue) and U-Net 10\% pruned (red) after 8 rounds of TMNRE.}
+  \caption{Comparison between U-Net (blue) and U-Net 10\% pruned (red) after 8 rounds of TMNRE. The dotted line shows the ground-truth value.}
   \label{fig:posterior_unet_pruned_10pc}
   \Description[<short description>]{<long description>}
 \end{figure}
@@ -52,14 +52,14 @@
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.85\linewidth]{media/images/Posteriors_ViT_pretrained_2_round_3.png}
-  \caption{Comparison between U-Net (blue) and ViT transformer (red) after 3 rounds of TMNRE.}
+  \caption{Comparison between U-Net (blue) and ViT transformer (red) after 3 rounds of TMNRE. The dotted line shows the ground-truth value.}
   \label{fig:posterior_vit}
   \Description[<short description>]{<long description>}
 \end{figure}
 
 \FloatBarrier
 
-\section{U-Net}
+\section{U-Net Architecture}
 \label{sec:apx:u-net_architecture}
 
 \begin{figure}[htb]
@@ -199,16 +199,16 @@
 			
 	\end{tikzpicture}	
  
-\caption{The architecture of (Attention) U-Net as implemented for the processing of the time domain signal. The frequency domain follows the same architecture, but the max pooling layer is a factor of 2, and the initial input wave is 4097$\times$6. Left column shows the encoder stage, middle column shows the decoder stage, and the right column shows the linear compression performed in Peregrine to reduce the U-Net output into the summary statistics. The difference between Attention U-Net and original U-Net is the addition of the Attention gates ($\sim$) in the skip layers (indicated with dashed lines).}
+\caption{The architecture of (Attention) U-Net as implemented for the processing of the time domain signal. The frequency domain follows the same architecture, but the max pooling layer is a factor of 2, and the initial input wave is 4097$\times$6. Left column shows the encoder stage, middle column shows the decoder stage, and the right column shows the linear compression performed in \texttt{peregrine} to reduce the U-Net output into the summary statistics. The difference between Attention U-Net and original U-Net is the addition of the Attention gates ($\sim$) in the skip layers (indicated with dashed lines).}
 \label{fig:Attention_UNet_arch}
  \end{figure}
 
 \section{Hyperparameter tuning}
 \label{sec:apx:Hyperparameter_tuning}
 
-Hyperparameters for the ViT transformer models were first tuned for the time domain and frequency domain signals separately. Once the optimal hyperparameters for those had been found, an additional step of combining the two models to find the optimal number of classes for each was performed. The dimensions of the MLP was also reassessed to ensure consistency. Results are given in Tables~\ref{tab:hyperparams_vit_t}, \ref{tab:hyperparams_vit_f}, and \ref{tab:hyperparams_vit_combined}.
+Hyperparameters for the ViT transformer models were first tuned for the time and frequency domain signals separately. Once the optimal hyperparameters for those were found, the models were combined to find the optimal number of classes. The dimensions of the MLP was also reassessed to ensure consistency. Results are given in Tables~\ref{tab:hyperparams_vit_t}, \ref{tab:hyperparams_vit_f}, and \ref{tab:hyperparams_vit_combined}, for the time, frequency and combination networks respectively.
 
-Results for the hyperparameter tuning of the MTS transformer models is given in Table~\ref{tab:hyperparams_mts}. Due to the optimal hyperparameters of the ViT model for the time and frequency networks being the same, the MTS network was tuned with the time and frequency networks together. The number of classes and patch size was also fixed at 16.
+Results for the hyperparameter tuning of the MTS transformer models is given in Table~\ref{tab:hyperparams_mts}. Due to the optimal hyperparameters of the ViT model for the time and frequency networks being the same, the MTS network was tuned with the time and frequency networks together. The number of classes and patch size was fixed at 16, as determined from the ViT tuning.
 
 \begin{table}
 \caption{Different trials for the hyperparameter tuning of the ViT transformer for the time domain signal. In total there were 69 trials performed, but only the 10 best and 10 worst trials are shown.}

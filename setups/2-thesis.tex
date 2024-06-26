@@ -30,7 +30,7 @@
 \date{30.06.2024}
 
 % 4-5 keywords should do the trick. They should ideally be phrases of 2-4 words or single words.
-\keywords{Simulation-Based Inference, Bayesian Inference, Gravitational Waves, UNet, Attention UNet, Vision Transformer, Time Series data}
+\keywords{Simulation-Based Inference, Bayesian Inference, Gravitational Waves, U-Net, Attention U-Net, Vision Transformer, Time Series}
 
 % Author data
 \authorname{Nicola Asquith}
@@ -56,6 +56,12 @@
 \usepackage{placeins}
 \usepackage{afterpage}
 \usepackage{adjustbox}
+%\usepackage[all]{nowidow}
+%\widowpenalty10000
+%\clubpenalty10000
+
+% Define a new command that uses the length variable
+\newcommand{\myvspacecommand}{\vspace{-0.0cm}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % tikz library
@@ -126,12 +132,19 @@
 \begin{abstract}
 % A summary of results should be included. Avoid citations. Maximum length is 200 words.
 
-The detection and analysis of gravitational waves (GW) is providing the opportunity to study the universe from a new perspective. Current methods of parameter inference from GW are computationally expensive, and the expected increase in detected events in the future is introducing significant data analytics challenges for the GW community. In this work, we focus on a specific analysis pipeline, \texttt{Peregrine}, which performs multiple sequential rounds of simulation-based inference employing the U-Net CNN architecture. The major bottleneck for performance in this pipeline is the network training time. Attention mechanisms, particularly as applied in in transformer models have become very popular in recent years due to their reported high performance. We compare the performance of \texttt{Peregrine} with the baseline U-Net model with several variations, including Attention U-Net, pre-trained Vision Transformer, pre-trained multi-variate time series transformer, and finally, structured network pruning of the original U-Net. In conclusion, we found that the best performing model was the original U-Net, and that the use of larger transformer models did not provide any performance improvement. This was predominantly due to longer training times required. The pruned networks could be trained faster but suffered from poorer accuracy in later inference rounds.
-\todo[inline]{Change abstract to be consistent with latest results}
+The detection and analysis of gravitational waves (GW) allows scientists to study the universe from a new perspective. Current techniques for parameter inference of GW are computationally expensive, and the substantial increase in detected events expected in the future is introducing significant data analytics challenges for the GW community. The \texttt{peregrine} analysis pipeline implements multiple sequential rounds of simulation-based inference with the U-Net CNN architecture. While this pipeline successfully performs high precision GW parameter inference, the network training time is a significant bottleneck.
+In this work, we assessed several modifications of the \texttt{peregrine} pipeline, with the aim to improve the overall performance. Attention mechanisms, particularly as applied in transformer models have become very popular in recent years due to their reported high performance. We compare the performance of \texttt{peregrine} with the baseline U-Net model with several variations, including Attention U-Net, pre-trained vision transformer, pre-trained multi-variate time series transformer, and finally, structured network pruning of the original U-Net. After a thorough investigation of the most promising state-of-the-art techniques, we concluded that the original U-Net in \texttt{peregrine} is already close to optimal.
+
+%we found no convincing evidence that these modifications improve the performance of .
+
+%that the best performing model was the original U-Net, and that the use of larger transformer models did not provide any performance improvement. This was predominantly due to longer training times required. The pruned networks could be trained faster but suffered from poorer accuracy in later inference rounds.
 
 \end{abstract}
 
 \maketitle
+
+%\stepcounter{footnote}
+%\footnotetext{Github Repository: \url{}
 
 \section*{Github Repository}
 \url{https://github.com/Nic0laA/master-thesis}

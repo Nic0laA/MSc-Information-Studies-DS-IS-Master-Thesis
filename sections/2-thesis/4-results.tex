@@ -13,6 +13,7 @@ The training curves during the pretraining stage of the transformer models is sh
   \caption{Training curves for the two transformer models and U-Net. The original training loss is shown in transparent, the smoothed average (period 50) of the training loss is shown in dotted lines, and the validation loss is shown as a solid line.}
   \Description[<short description>]{<long description>}
   \label{fig:pretain_loss_curve}
+  \myvspacecommand
 \end{figure}
 
 The validation loss of the U-Net and ViT converges to very similar values, so the ViT model does not seem to extract any information above and beyond the U-Net model. In Table~\ref{tab:loss_pretraining}, the loss per parameter at the end of the pretraining is given. 
@@ -20,6 +21,7 @@ The validation loss of the U-Net and ViT converges to very similar values, so th
 \begin{table}[htb]
     \caption{Loss values for each of the parameters}
     \label{tab:loss_pretraining}
+    \setlength\extrarowheight{-1pt}
     \begin{tabular}{lrrr}
     \toprule
     Parameter & MTS & ViT & U-Net \\
@@ -44,13 +46,15 @@ The validation loss of the U-Net and ViT converges to very similar values, so th
     $t_c$ & -0.965 & -1.104 & -1.105 \\
     \bottomrule
     \end{tabular}
+    \myvspacecommand
 \end{table}
 
 \subsection{Peregrine Networks}
 
-The results of the different networks integrated into \texttt{peregrine} is shown in Table~\ref{tab:peregrine_network_results}. In addition to the change in network architectures, we also include two additional cases, \enquote{U-Net (half)} and \enquote{U-Net (NR)}. The \enquote{U-Net (half)} is the \enquote{U-Net} with half the number of simulations per round (refer back to Table~\ref{tab:default_run_settings}) and the \enquote{NR} in \enquote{U-Net (NR)} stands for \enquote{No Re-initialization}. In the original \texttt{peregrine}, each simulation round begins with a freshly initialised network i.e. the weights are set back to random. For the \enquote{NR} case, we transfer the weights of the trained network to the following round. The number of training steps can be used as a measure of time to train the network each round. For the U-Net architectures, the batch size is 256, while for ViT it was 64. However, each training step takes approximately the same amount of time.
+The results of the different networks integrated into \texttt{peregrine} is shown in Table~\ref{tab:peregrine_network_results}. In addition to the change in network architectures, we also include two additional cases, \enquote{U-Net (half)} and \enquote{U-Net (NR)}. The \enquote{U-Net (half)} is the \enquote{U-Net} with half the number of simulations per round (refer back to Table~\ref{tab:default_run_settings}) and the \enquote{NR} in \enquote{U-Net (NR)} stands for \enquote{No Re-initialization}. In the original \texttt{peregrine}, each simulation round begins with a freshly initialised network i.e. the weights are set back to random. For the \enquote{NR} case, we transfer the weights of the trained network to the following round. The number of training steps can be used as a measure of time to train the network each round. For the U-Net architectures, the batch size is 256, while for ViT it was 64. However, each training step of the ViT takes $\sim2\times$ longer than the U-Net.
 
 \begin{table}[htb]
+\setlength\extrarowheight{-2pt}
 \caption{Network performance of different network architectures for Peregrine. The first U-Net is the performance baseline.}
 \label{tab:peregrine_network_results}
 \hspace{-0.0cm}
@@ -126,14 +130,14 @@ ViT & 3 & 40 & 50360 & 2.39e-06 & -4.91 & -4.61 & 0.750 \\
 
 \bottomrule
 \end{tabular}}
+\myvspacecommand
 \end{table}
 
+To save some computer budget, the ViT model was stopped after only completing three rounds, since in the same amount of time, U-Net had completed all 8 rounds. In terms of training times/steps of the U-Net cases, the run with half the number of training samples took about 50\% of the time to train compared to the baseline case. The U-Net that was not reinitialized finished the runs about 35\% faster, the attention U-Net was 8\% faster, the U-Net pruned models were both 30\% faster. Although the U-Net 10\% pruned model took faster to train, we can also see that the loss values were higher than the other cases, suggesting that the network started to drop in performance.
 
-Due to the very slow progress of the ViT model, it was stopped after only completing three rounds to save some computer budget. In terms of training times/steps of the other networks, the run with half the number of training samples took about 50\% of the time to train compared to the baseline case. The U-Net that was not reinitialized finished the runs about 35\% faster, the attention U-Net was 8\% faster, the U-Net pruned models were both 30\% faster. Although the U-Net 10\% pruned model took faster to train, we can also see that the loss values were higher than the other cases, suggesting that the network started to drop in performance.
+For all the different networks the truncation rapidly decreases in the first four rounds before reducing only very slightly in the subsequent rounds. This means that after 5 rounds or so, the parameter range of interest has been identified, and the posteriors will start to be constructed with the highest precision. The original U-Net and U-Net with no re-initialisation is able to reduce the parameter space most efficiently. 
 
-For all the different networks the truncation rapidly decreases in the first four rounds before reducing only very slightly in the subsequent rounds. This means that after 5 rounds or so, the parameter range of interest has been identified, and the posteriors will start to be constructed with higher precision. The original U-Net and U-Net with no re-initialisation is able to reduce the parameter space most efficiently. 
-
-Table~\ref{tab:peregrine_network_results} shows a summary of performance metrics for the different networks. However, we still cannot conclude the best option without comparing the posterior plots. The posterior plots are given in Figures~\ref{fig:posterior_unet_half}--\ref{fig:posterior_vit} in the appendix.
+A summary of performance metrics are provided in Table~\ref{tab:peregrine_network_results}. These are quantitative ways to compare the networks, however we still cannot conclude the best option without comparing the posterior plots. Although this is only a qualitative comparison, it is in the end, the most important element to consider. The posterior plots are given in Figures~\ref{fig:posterior_unet_half}--\ref{fig:posterior_vit} in Appendix~\ref{sec:apx:posterior_plots}.
 
 %\FloatBarrier
 
